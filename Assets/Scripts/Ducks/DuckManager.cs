@@ -44,7 +44,7 @@ public class DuckManager : MonoBehaviour
             }
 
             EnemyArray.Clear();
-            Collider[] hits = Physics.OverlapSphere(center, 60, (1 << 6) | (1 << 11));
+            Collider[] hits = Physics.OverlapSphere(center, 80, (1 << 6) | (1 << 11));
 
             foreach (Collider hit in hits)
             {

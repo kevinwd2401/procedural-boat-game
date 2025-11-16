@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Turret : MonoBehaviour
 {
     [SerializeField] GameObject shellPrefab;
-    [SerializeField] Transform targetTransform;
+    [SerializeField] protected Transform targetTransform;
     [SerializeField] protected Transform turretBase, turret;
     [SerializeField] protected Transform[] firePoints;
     [Header("Constraints")]
@@ -25,10 +25,10 @@ public abstract class Turret : MonoBehaviour
     protected int torpedosLoaded;
     
 
-    protected bool CheckAngle() {
+    protected bool CheckAngle(float angle) {
         float dot = Vector3.Dot(turretBase.forward, turret.forward);
-        if (FrontBlocked && dot > 0.8) return false;
-        if (BackBlocked && dot < -0.8) return false;
+        if (FrontBlocked && dot > angle) return false;
+        if (BackBlocked && dot < -angle) return false;
         return true;
     }
 
@@ -58,7 +58,7 @@ public abstract class Turret : MonoBehaviour
     }
 
     protected bool PlayerFireTorpedo(float lifespan) {
-        if (torpedosLoaded < 1 || !CheckAngle() || !CheckAim() || getDist() < 1f) return false;
+        if (torpedosLoaded < 1 || !CheckAngle(0.7f) || !CheckAim() || getDist() < 1f) return false;
         torpedosLoaded--;
 
         Vector3 dir = turret.forward;
@@ -71,7 +71,7 @@ public abstract class Turret : MonoBehaviour
     }
 
     protected bool EnemyFireTorpedo(float lifespan, float spread) {
-        if (reloadTimer > 0.01f || !CheckAngle() || !CheckAim() || getDist() < 1f) return false;
+        if (reloadTimer > 0.01f || !CheckAngle(0.7f) || !CheckAim() || getDist() < 1f) return false;
         reloadTimer = 1000f;
 
         StartCoroutine(EnemyTorpSpreadCor(lifespan, spread));
@@ -99,7 +99,7 @@ public abstract class Turret : MonoBehaviour
     }
 
     protected bool Fire(bool offset, float offsetAmount = 0.05f) {
-        if (reloadTimer > 0.01f || !CheckAngle() || !CheckAim() || getDist() < 3f) return false;
+        if (reloadTimer > 0.01f || !CheckAngle(0.8f) || !CheckAim() || getDist() < 3f) return false;
         reloadTimer = ReloadTime;
 
         if (firePoints.Length > 1) offset = true;
@@ -127,28 +127,6 @@ public abstract class Turret : MonoBehaviour
 
     protected float getDist() {
         return Vector3.Distance(turret.position, targetTransform.position);
-    }
-
-    protected virtual IEnumerator idleTurretTurn() {
-        while (true) {
-            yield return new WaitForSeconds(3);
-            if (Vector3.Dot(-turret.right, turretBase.forward) > 0.6f) {
-                cTurretTurn = -12;
-            } else if (Vector3.Dot(-turret.right, turretBase.forward) < -0.6f) {
-                cTurretTurn = 12;
-            } else {
-                float r = Random.value;
-                if (Mathf.Abs(cTurretTurn) > 0.1f) {
-                    cTurretTurn = 0;
-                } else if (r < 0.4f) {
-                    cTurretTurn = 10;
-                } else if (r < 0.8f) {
-                    cTurretTurn = -10;
-                } else {
-                    cTurretTurn = 0;
-                }
-            }
-        }
     }
 
 }

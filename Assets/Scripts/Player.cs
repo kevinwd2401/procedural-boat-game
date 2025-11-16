@@ -67,6 +67,7 @@ public class Player : MonoBehaviour, IDamagable
 
     public void InflictDamage(int dmg) {
         Health -= dmg;
+        Debug.Log("ouch");
         if (Health <= 0) {
             Destruction();
         }

@@ -14,7 +14,7 @@ public class Duck : GroupBehavior, IDamagable, IBoid
     {
         moveSpeed = 2.5f;
 
-        seekWeight = 0.8f;
+        seekWeight = 0.3f;
         fleeWeight = 3f;
         cohesionWeight = 1.2f;
         alignmentWeight = 0.4f;

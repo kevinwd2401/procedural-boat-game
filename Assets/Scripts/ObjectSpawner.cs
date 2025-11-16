@@ -18,7 +18,7 @@ public class ObjectSpawner : MonoBehaviour
 
     IEnumerator SpawnCor() {
         while (true) {
-            yield return new WaitForSeconds(8 + 4 * Random.value);
+            yield return new WaitForSeconds(10 + 4 * Random.value);
 
             bool prevPlayerInRange = playerInRange;
 

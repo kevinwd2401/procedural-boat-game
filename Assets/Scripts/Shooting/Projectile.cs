@@ -8,8 +8,12 @@ public class Projectile : MonoBehaviour
     private Rigidbody rb;
 
     private int damage;
-    private float lifetime = 0;
+    private float lifetime;
+    private bool dead;
 
+    void Awake() {
+        rb = GetComponent<Rigidbody>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -34,20 +38,19 @@ public class Projectile : MonoBehaviour
     }
 
     private void Destruction() {
-        
+        if (dead) return;
+        dead = true;
         BulletPool.bulletPool.Release(this);
     }
 
     public void SetValues(int dmg, Vector3 velocity) {
-        rb = GetComponent<Rigidbody>();
         damage = dmg;
         rb.velocity = velocity;
-
-        //spawn particle system
     }
 
     public void ResetValues() {
         lifetime = 0;
         rb.velocity = Vector3.zero;
+        dead = false;
     }
 }

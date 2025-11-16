@@ -2,18 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyLauncher : MonoBehaviour
 {
-    public static EnemyManager Instance;
-    public Transform playerTransform;
-
-    public bool FlagShipDestroyed;
-    public Enemy Flagship;
-
-    void Awake() {
-        Instance = this;
-    }
-
     // Start is called before the first frame update
     void Start()
     {

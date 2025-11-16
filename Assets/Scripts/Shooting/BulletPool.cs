@@ -25,10 +25,11 @@ public class BulletPool
 
     private static void ActionOnGetBullet(Projectile bullet) {
         bullet.gameObject.SetActive(true);
+        bullet.ResetValues();
+
     }
 
     private static void ActionOnReleaseBullet(Projectile bullet) {
-        bullet.ResetValues();
 
         bullet.gameObject.SetActive(false);
     }
