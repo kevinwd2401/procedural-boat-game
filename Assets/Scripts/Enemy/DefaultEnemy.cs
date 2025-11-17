@@ -16,6 +16,8 @@ public class DefaultEnemy : Enemy
     void Awake() {
         seed3 = Random.Range(0, 3);
         seed2 = Random.Range(0, 2);
+        shellSpeed = 20;
+        torpSpeed = 20;
     }
 
     // Start is called before the first frame update

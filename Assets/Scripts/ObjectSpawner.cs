@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectSpawner : MonoBehaviour
 {
 
-    public float innerRadius = 250f;
+    public float innerRadius = 300f;
     public float outerRadius = 600f;
 
     public int spawnCount = 40;

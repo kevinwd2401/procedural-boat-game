@@ -13,12 +13,20 @@ public class Player : MonoBehaviour, IDamagable
 
     float fireDelay, torpedoFireDelay;
     private Plane targetPlane;
+    
+    private Vector3 camOffset;
+    private float camOffsetMultiplier;
+
+    void Awake() {
+        ship = GetComponent<Ship>();
+        targetPlane = new Plane(Vector3.up, Vector3.zero);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        ship = GetComponent<Ship>();
-        targetPlane = new Plane(Vector3.up, Vector3.zero);
+        camOffset = mainCamera.transform.localPosition;
+        camOffsetMultiplier = 1;
     }
 
     // Update is called once per frame
@@ -35,6 +43,29 @@ public class Player : MonoBehaviour, IDamagable
             ship.Accelerate(true);
         } else if (Input.GetKey(KeyCode.S)) {
             ship.Accelerate(false);
+        }
+
+        if (Input.GetKey(KeyCode.Q)) {
+            Transform camtrans = mainCamera.transform;
+            camtrans.localEulerAngles = new Vector3(
+            Mathf.Clamp(camtrans.localEulerAngles.x + 18 * Time.deltaTime, 48, 70), 
+            camtrans.localEulerAngles.y, 
+            camtrans.localEulerAngles.z);
+        } else if (Input.GetKey(KeyCode.E)) {
+            Transform camtrans = mainCamera.transform;
+            camtrans.localEulerAngles = new Vector3(
+            Mathf.Clamp(camtrans.localEulerAngles.x - 18 * Time.deltaTime, 48, 70), 
+            camtrans.localEulerAngles.y, 
+            camtrans.localEulerAngles.z);
+        }
+
+        float scrollValue = Input.mouseScrollDelta.y;
+        if (scrollValue != 0f)
+        {
+            float step = 0.05f;
+            camOffsetMultiplier -= Mathf.Sign(scrollValue) * step;
+            camOffsetMultiplier = Mathf.Clamp(camOffsetMultiplier, 0.6f, 1.2f);
+            mainCamera.transform.localPosition = camOffset * camOffsetMultiplier;
         }
         
         //target
