@@ -5020,6 +5020,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duckModel: {fileID: 5966110544587978785}
+  smokePrefab: {fileID: 7915616489168928819, guid: f7d5e583d4c0e804c9c8852fe13133e8,
+    type: 3}
 --- !u!54 &7403557522684289701
 Rigidbody:
   m_ObjectHideFlags: 0

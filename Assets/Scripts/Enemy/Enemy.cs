@@ -94,7 +94,7 @@ public abstract class Enemy : GroupBehavior, IDamagable
                 smoke.transform.localPosition = 0.7f * smoke.transform.localPosition;
             }
         }
-        else if (Health < 2000 && Random.value < 0.05f)
+        else if (Health < 2000 && Random.value < 0.1f)
         {
             FiresOnShip++;
 
@@ -140,8 +140,8 @@ public abstract class Enemy : GroupBehavior, IDamagable
         float originalY = transform.position.y;
         float sinkTimer = 0;
         while (sinkTimer < duration) {
-            float horizontal = Mathf.SmoothStep(0, -12, Mathf.Pow(sinkTimer / duration, 2f));
-            transform.position = new Vector3(transform.position.x, originalY + horizontal, transform.position.z);
+            float vertical = Mathf.SmoothStep(0, -14, Mathf.Pow(sinkTimer / duration, 2f));
+            transform.position = new Vector3(transform.position.x, originalY + vertical, transform.position.z);
 
             sinkTimer += Time.deltaTime;
             yield return null;
