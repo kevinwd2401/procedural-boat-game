@@ -48,13 +48,13 @@ public class Player : MonoBehaviour, IDamagable
         if (Input.GetKey(KeyCode.Q)) {
             Transform camtrans = mainCamera.transform;
             camtrans.localEulerAngles = new Vector3(
-            Mathf.Clamp(camtrans.localEulerAngles.x + 18 * Time.deltaTime, 48, 70), 
+            Mathf.Clamp(camtrans.localEulerAngles.x + 22 * Time.deltaTime, 51, 70), 
             camtrans.localEulerAngles.y, 
             camtrans.localEulerAngles.z);
         } else if (Input.GetKey(KeyCode.E)) {
             Transform camtrans = mainCamera.transform;
             camtrans.localEulerAngles = new Vector3(
-            Mathf.Clamp(camtrans.localEulerAngles.x - 18 * Time.deltaTime, 48, 70), 
+            Mathf.Clamp(camtrans.localEulerAngles.x - 22 * Time.deltaTime, 51, 70), 
             camtrans.localEulerAngles.y, 
             camtrans.localEulerAngles.z);
         }
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour, IDamagable
         {
             float step = 0.05f;
             camOffsetMultiplier -= Mathf.Sign(scrollValue) * step;
-            camOffsetMultiplier = Mathf.Clamp(camOffsetMultiplier, 0.6f, 1.2f);
+            camOffsetMultiplier = Mathf.Clamp(camOffsetMultiplier, 0.7f, 1.2f);
             mainCamera.transform.localPosition = camOffset * camOffsetMultiplier;
         }
         

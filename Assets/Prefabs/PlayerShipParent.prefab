@@ -5303,8 +5303,8 @@ MonoBehaviour:
   shipModel: {fileID: 5831295677289243052}
   currentRudder: 0
   currentForce: 0
-  turnSpeed: 12
-  maxTurn: 24
+  turnSpeed: 30
+  maxTurn: 20
   turnResistance: 0.8
   maxSpeed: 16
   maxForce: 8
@@ -20699,13 +20699,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7596718436187083685}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.47697467, y: 0, z: 0, w: 0.87891704}
-  m_LocalPosition: {x: 3.1, y: 111.299995, z: -56}
+  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
+  m_LocalPosition: {x: 3.1, y: 88, z: -49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3466427450706937909}
-  m_LocalEulerAnglesHint: {x: 56.976, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
 --- !u!20 &6118511886812637607
 Camera:
   m_ObjectHideFlags: 0
@@ -20739,7 +20739,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 75
   orthographic: 0
   orthographic size: 20
   m_Depth: -1

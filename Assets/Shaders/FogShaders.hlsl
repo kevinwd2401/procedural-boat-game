@@ -1,7 +1,7 @@
 
 static const float STEP_SIZE = 0.1;
 static const float3 LIGHT_DIR = float3(0.8, 0.5, 0.2);
-static const float3 LIGHT_COLOR = float3(0.2, 0.22, 0.33);
+static const float3 LIGHT_COLOR = float3(0.16, 0.17, 0.25);
 static const float NOISE_SCALE = 0.005;
 static const float NOISE_STRENGTH = 0.9;
 

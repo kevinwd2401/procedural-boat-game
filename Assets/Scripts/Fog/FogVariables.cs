@@ -39,7 +39,7 @@ public class FogVariables : MonoBehaviour
     }
 
     void Update() {
-        timer += Time.deltaTime * 10f;
+        timer += Time.deltaTime * 0.2f;
     }
 
     float SmoothNoise1D(float t)
@@ -49,7 +49,7 @@ public class FogVariables : MonoBehaviour
             0.3f * Mathf.Sin(t * 0.19f + 1.3f) +
             0.1f * Mathf.Sin(t * 0.41f + 6.2f);
 
-        return Mathf.Lerp(0.5f, 1.2f, (n + 1.2f) * 0.5f);
+        return Mathf.Lerp(0.7f, 1.2f, (n + 1.2f) * 0.5f);
     }
 
     void OnDestroy() {
