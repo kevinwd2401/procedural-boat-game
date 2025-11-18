@@ -87,7 +87,7 @@ public abstract class Turret : MonoBehaviour
             
             Vector3 dir = turret.forward;
             dir.y = 0;
-            Vector3 offsetDir = Quaternion.Euler(0, -spread / 2 + i * increment, 0) * dir;
+            Vector3 offsetDir = Quaternion.Euler(0, -spread / 2 + i * increment + (6 * Random.value - 3), 0) * dir;
             GameObject torpedo = Instantiate(shellPrefab, firePoints[i].position, Quaternion.identity);
             torpedo.transform.forward = offsetDir.normalized;
             torpedo.GetComponent<Torpedo>().SetValues(damage, bulletSpeed, lifespan);
@@ -137,7 +137,7 @@ public abstract class Turret : MonoBehaviour
     }
 
     public virtual void AddSelfToTurrets(Enemy e) {
-        
+
     }
 
 }

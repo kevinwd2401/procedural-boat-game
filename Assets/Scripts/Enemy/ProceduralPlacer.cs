@@ -18,11 +18,11 @@ public class ProceduralPlacer : MonoBehaviour
 
         GameObject turret;
         if (turretType.childCount == 1) {
-            turret = transform.GetChild(0).gameObject;
+            turret = turretType.GetChild(0).gameObject;
         } else if (turretType.childCount == 2) {
-            turret = transform.GetChild(((DefaultEnemy) enemy).seed2).gameObject;
+            turret = turretType.GetChild(((DefaultEnemy) enemy).seed2).gameObject;
         } else {
-            turret = transform.GetChild(((DefaultEnemy) enemy).seed3).gameObject;
+            turret = turretType.GetChild(((DefaultEnemy) enemy).seed3).gameObject;
         }
         turret.SetActive(true);
         turret.GetComponent<Turret>().AddSelfToTurrets(enemy);

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamagable
 {
+    [SerializeField] GameObject explosionPrefab;
     [SerializeField] Camera mainCamera;
     [SerializeField] Transform targetTransform;
     Ship ship;
@@ -48,13 +49,13 @@ public class Player : MonoBehaviour, IDamagable
         if (Input.GetKey(KeyCode.Q)) {
             Transform camtrans = mainCamera.transform;
             camtrans.localEulerAngles = new Vector3(
-            Mathf.Clamp(camtrans.localEulerAngles.x + 22 * Time.deltaTime, 51, 70), 
+            Mathf.Clamp(camtrans.localEulerAngles.x + 26 * Time.deltaTime, 51, 70), 
             camtrans.localEulerAngles.y, 
             camtrans.localEulerAngles.z);
         } else if (Input.GetKey(KeyCode.E)) {
             Transform camtrans = mainCamera.transform;
             camtrans.localEulerAngles = new Vector3(
-            Mathf.Clamp(camtrans.localEulerAngles.x - 22 * Time.deltaTime, 51, 70), 
+            Mathf.Clamp(camtrans.localEulerAngles.x - 26 * Time.deltaTime, 51, 70), 
             camtrans.localEulerAngles.y, 
             camtrans.localEulerAngles.z);
         }
@@ -110,6 +111,9 @@ public class Player : MonoBehaviour, IDamagable
     }
 
     private void Destruction() {
+        ship.LoseEngines();
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+
         Debug.Log("dead");
     }
 }

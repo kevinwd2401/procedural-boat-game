@@ -12,7 +12,7 @@ public class BulletPool
     public static IObjectPool<GameObject> ballPool = new ObjectPool<GameObject>(CreateBall, ActionOnGetBall, ActionOnReleaseBall, ActionOnDestroyBall, true, defaultSizeBallPool, maxSizeBallPool);
 
     private static readonly int maxSizeBulletPool = 120;
-    private static readonly int defaultSizeBulletPool = 20;
+    private static readonly int defaultSizeBulletPool = 40;
 
     private static GameObject bulletPrefab = Resources.Load<GameObject>("Shell");
     public static IObjectPool<Projectile> bulletPool = new ObjectPool<Projectile>(CreateBullet, ActionOnGetBullet, ActionOnReleaseBullet, ActionOnDestroyBullet, true, defaultSizeBulletPool, maxSizeBulletPool);

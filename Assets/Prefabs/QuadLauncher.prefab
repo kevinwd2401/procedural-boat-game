@@ -361,7 +361,7 @@ MonoBehaviour:
   cTurretTurn: 0
   damage: 800
   bulletSpeed: 7
-  spreadAngle: 22
+  spreadAngle: 24
   Ready: 0
 --- !u!1 &8954602828336091312
 GameObject:

@@ -21,8 +21,9 @@ public class DefaultEnemy : Enemy
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
+        Health = 1000;
         StartCoroutine(ChangeOffset(ShootingOffset));
 
         player = EnemyManager.Instance.playerTransform.gameObject;
@@ -32,14 +33,14 @@ public class DefaultEnemy : Enemy
         StartCoroutine(DelayedStart());
     }
 
-    IEnumerator DelayedStart() {
+    protected IEnumerator DelayedStart() {
         yield return new WaitForSeconds(0.1f);
         foreach (EnemyTurret t in TurretArray) {
-            t.Ready = true;
+            //t.Ready = true;
             shellSpeed = t.bulletSpeed;
         }
         foreach (EnemyLauncher l in LauncherArray) {
-            l.Ready = true;
+            //l.Ready = true;
             torpSpeed = l.bulletSpeed;
         }
     }
@@ -53,7 +54,7 @@ public class DefaultEnemy : Enemy
         }
     }
 
-    public void InitializeEnemy() {
-        
+    public virtual void InitializeEnemy() {
+         
     }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class Enemy : GroupBehavior, IDamagable
 {
+    [SerializeField] GameObject explosionPrefab;
+    [SerializeField] GameObject smokePrefab;
+    [SerializeField] GameObject firePrefab;
 
     [SerializeField] protected Transform targetTransform;
     [SerializeField] protected Transform torpTargetTransform;
@@ -22,6 +25,9 @@ public abstract class Enemy : GroupBehavior, IDamagable
 
     protected Vector3 aimOffset;
     protected float aimOffsetLinear;
+    private bool isDead;
+
+    
     
     protected float getDist(Rigidbody duck = null) {
         if (duck != null) {
@@ -49,7 +55,7 @@ public abstract class Enemy : GroupBehavior, IDamagable
                 o /= 3;
             aimOffset = new Vector3(o.x, 0, o.y);
 
-            aimOffsetLinear = 0.55f * Random.value + 0.45f;
+            aimOffsetLinear = 0.65f * Random.value + 0.35f;
             yield return new WaitForSeconds(3 + Random.value);
         }
     }
@@ -73,7 +79,11 @@ public abstract class Enemy : GroupBehavior, IDamagable
     public void InflictDamage(int dmg, Transform bulletTrans) {
         if (dmg > 1000 || Random.value < 0.02f) {
             EngineDamage = true;
-
+            if (Random.value > 0.5f) {
+                ship.LoseEngines();
+            } else {
+                ship.LoseRudder();
+            }
             //Spawn VFX
         }
 
@@ -83,15 +93,49 @@ public abstract class Enemy : GroupBehavior, IDamagable
 
             //Spawn VFX
         }
-        Debug.Log("enemy took " + dmg + ", Remaining: " + Health);
 
         Health -= dmg;
+        Debug.Log("enemy took " + dmg + ", Remaining: " + Health);
         if (Health <= 0) {
             Destruction();
         }
     }
 
     private void Destruction() {
+        if (isDead) return;
+        isDead = true;
+
+        foreach (EnemyTurret t in TurretArray) {
+            t.Ready = false;
+        }
+        foreach (EnemyLauncher l in LauncherArray) {
+            l.Ready = false;
+        }
+        EnemyManager.Instance.EnemyCount--;
+        EnemyManager.Instance.Deaths++;
+
+        // VFX
+        GameObject expl = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        Destroy(expl, 5);
+
+        ship.LoseEngines();
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Collider>().enabled = false;
+        StartCoroutine(SinkCor(6));
+
         Debug.Log("OOF");
+    }
+    IEnumerator SinkCor(float duration) {
+        yield return new WaitForSeconds(1 + Random.value);
+        float originalY = transform.position.y;
+        float sinkTimer = 0;
+        while (sinkTimer < duration) {
+            float horizontal = Mathf.SmoothStep(0, -12, Mathf.Pow(sinkTimer / duration, 2f));
+            transform.position = new Vector3(transform.position.x, originalY + horizontal, transform.position.z);
+
+            sinkTimer += Time.deltaTime;
+            yield return null;
+        }
+        Destroy(gameObject);
     }
 }

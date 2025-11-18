@@ -4971,7 +4971,7 @@ MonoBehaviour:
   - {fileID: 4397029093603156816}
   FrontBlocked: 1
   BackBlocked: 0
-  ReloadTime: 1.5
+  ReloadTime: 1.8
   reloadTimer: 0
   TurretSpeed: 100
   cTurretTurn: 0
@@ -5276,6 +5276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2c230a3cebb31940a2e9dc5e435309b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 5542800782235073250, guid: 2c2618203afa9324abb754ea64043546,
+    type: 3}
   mainCamera: {fileID: 0}
   targetTransform: {fileID: 2101470679107708180}
   turrets:
@@ -5308,7 +5310,7 @@ MonoBehaviour:
   turnResistance: 0.8
   maxSpeed: 16
   maxForce: 8
-  accelSpeed: 3
+  accelSpeed: 8
 --- !u!54 &8053481449667479092
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5334,7 +5336,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 64
   m_CollisionDetection: 0
 --- !u!65 &5209990605380563510
 BoxCollider:
@@ -21102,7 +21104,7 @@ MonoBehaviour:
   - {fileID: 7798262054094781254}
   FrontBlocked: 0
   BackBlocked: 1
-  ReloadTime: 1.5
+  ReloadTime: 1.8
   reloadTimer: 0
   TurretSpeed: 100
   cTurretTurn: 0

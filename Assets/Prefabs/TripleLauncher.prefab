@@ -359,5 +359,5 @@ MonoBehaviour:
   cTurretTurn: 0
   damage: 800
   bulletSpeed: 7
-  spreadAngle: 18
+  spreadAngle: 20
   Ready: 0
