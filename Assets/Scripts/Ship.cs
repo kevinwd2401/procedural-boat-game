@@ -27,7 +27,7 @@ public class Ship : MonoBehaviour
     void Update()
     {
         if (loseEngines) {
-            currentForce = Mathf.Max(currentForce - 0.4f * accelSpeed * Time.deltaTime, 0.5f);
+            currentForce = Mathf.Max(currentForce - 0.4f * Time.deltaTime, 4f);
         }
 
         if (loseRudder) return;
@@ -60,7 +60,6 @@ public class Ship : MonoBehaviour
     }
 
     public void Turn(bool left) {
-        if (loseRudder) return;
         if (!left && currentRudder > -maxTurn) {
             currentRudder -= 2 * turnSpeed * Time.deltaTime;
         } else if (left && currentRudder < maxTurn) {

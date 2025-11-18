@@ -325,8 +325,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 5542800782235073250, guid: cec7717a1dc1cec4791e0856147227d1,
     type: 3}
-  smokePrefab: {fileID: 0}
-  firePrefab: {fileID: 0}
+  smokePrefab: {fileID: 7915616489168928819, guid: f7d5e583d4c0e804c9c8852fe13133e8,
+    type: 3}
+  firePrefab: {fileID: 8848306832832486296, guid: e8132650488cf22489f3bc00e4d0afb7,
+    type: 3}
   targetTransform: {fileID: 8322040780603762371}
   torpTargetTransform: {fileID: 0}
   TurretArray: []
@@ -410,7 +412,7 @@ MonoBehaviour:
   maxTurn: 18
   turnResistance: 0.7
   maxSpeed: 12
-  maxForce: 13.5
+  maxForce: 13
   accelSpeed: 0
 --- !u!1 &5322636856505084170
 GameObject:

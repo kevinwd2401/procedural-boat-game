@@ -21455,9 +21455,9 @@ MonoBehaviour:
   - {fileID: 7635978818244700197}
   FrontBlocked: 1
   BackBlocked: 1
-  ReloadTime: 12
+  ReloadTime: 14
   reloadTimer: 0
   TurretSpeed: 80
   cTurretTurn: 0
   damage: 3600
-  bulletSpeed: 9
+  bulletSpeed: 12

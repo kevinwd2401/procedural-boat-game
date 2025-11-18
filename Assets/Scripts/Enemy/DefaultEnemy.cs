@@ -23,7 +23,7 @@ public class DefaultEnemy : Enemy
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        Health = 1000;
+        Health = 10000;
         StartCoroutine(ChangeOffset(ShootingOffset));
 
         player = EnemyManager.Instance.playerTransform.gameObject;

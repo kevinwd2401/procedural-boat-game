@@ -77,25 +77,35 @@ public abstract class Enemy : GroupBehavior, IDamagable
     }
 
     public void InflictDamage(int dmg, Transform bulletTrans) {
-        if (dmg > 1000 || Random.value < 0.02f) {
+        if (dmg > 1000 || Random.value < 0.02f)
+        {
             EngineDamage = true;
-            if (Random.value > 0.5f) {
+            float damageR = Random.value;
+            if (damageR > 0.6f) {
                 ship.LoseEngines();
-            } else {
+            } else if (damageR > 0.4f) {
                 ship.LoseRudder();
             }
-            //Spawn VFX
-        }
 
-        if (Health < 2000 && Random.value < 0.05f)
+            if (damageR > 0.4f) {
+                //Spawn VFX
+                GameObject smoke = Instantiate(smokePrefab, bulletTrans.position, Quaternion.identity);
+                smoke.transform.parent = transform;
+                smoke.transform.localPosition = 0.7f * smoke.transform.localPosition;
+            }
+        }
+        else if (Health < 2000 && Random.value < 0.05f)
         {
             FiresOnShip++;
 
             //Spawn VFX
+            GameObject fire = Instantiate(firePrefab, bulletTrans.position, Quaternion.identity);
+            fire.transform.parent = transform;
+            fire.transform.localPosition = 0.7f * fire.transform.localPosition;
         }
 
         Health -= dmg;
-        Debug.Log("enemy took " + dmg + ", Remaining: " + Health);
+        Debug.Log("Enemy took " + dmg + ", Remaining: " + Health);
         if (Health <= 0) {
             Destruction();
         }
@@ -123,7 +133,7 @@ public abstract class Enemy : GroupBehavior, IDamagable
         GetComponent<Collider>().enabled = false;
         StartCoroutine(SinkCor(6));
 
-        Debug.Log("OOF");
+        Debug.Log("Enemy Sunk");
     }
     IEnumerator SinkCor(float duration) {
         yield return new WaitForSeconds(1 + Random.value);

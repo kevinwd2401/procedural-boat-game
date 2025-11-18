@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Torpedo : MonoBehaviour
 {
+    [SerializeField] GameObject explosionPrefab;
     private Rigidbody rb;
 
     private int damage;
@@ -25,12 +26,22 @@ public class Torpedo : MonoBehaviour
         if (c.gameObject.tag == "Water" || totalLife - lifespan < 0.5f) return;
         if (c.gameObject.TryGetComponent<IDamagable>(out IDamagable d)) {
             d.InflictDamage(damage, this.transform);
+
+            if (c.contactCount > 0)
+            {
+                ParticleSystem spark = BulletPool.sparkPool.Get();
+                spark.transform.position = c.GetContact(0).point;
+                spark.Play();
+            }
+            
         }
 
         Destruction();
     }
 
     private void Destruction() {
+        GameObject vfx = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        Destroy(vfx, 4);
         Destroy(gameObject);
     }
 

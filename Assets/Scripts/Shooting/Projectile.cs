@@ -37,6 +37,16 @@ public class Projectile : MonoBehaviour
             d.InflictDamage(damage, model);
         }
 
+        if (c.gameObject.tag == "Water") {
+            ParticleSystem splash = BulletPool.splashPool.Get();
+            splash.transform.position = transform.position;
+            splash.Play();
+        } else {
+            ParticleSystem spark = BulletPool.sparkPool.Get();
+            spark.transform.position = transform.position;
+            spark.Play();
+        }
+
         Destruction();
     }
 

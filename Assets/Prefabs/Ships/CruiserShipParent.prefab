@@ -131,8 +131,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 5542800782235073250, guid: 2c2618203afa9324abb754ea64043546,
     type: 3}
-  smokePrefab: {fileID: 0}
-  firePrefab: {fileID: 0}
+  smokePrefab: {fileID: 7915616489168928819, guid: f7d5e583d4c0e804c9c8852fe13133e8,
+    type: 3}
+  firePrefab: {fileID: 8848306832832486296, guid: e8132650488cf22489f3bc00e4d0afb7,
+    type: 3}
   targetTransform: {fileID: 4856793020385035973}
   torpTargetTransform: {fileID: 2975114739551293032}
   TurretArray:
