@@ -2,8 +2,8 @@
 static const float STEP_SIZE = 0.1;
 static const float3 LIGHT_DIR = float3(0.8, 0.5, 0.2);
 static const float3 LIGHT_COLOR = float3(0.16, 0.17, 0.25);
-static const float NOISE_SCALE = 0.005;
-static const float NOISE_STRENGTH = 0.9;
+static const float NOISE_SCALE = 0.003;
+static const float NOISE_STRENGTH = 0.8;
 
 
 float2 rayBoxDist(float3 BoundsMin, float3 BoundsMax, float3 RayOrigin, float3 RayDirection)

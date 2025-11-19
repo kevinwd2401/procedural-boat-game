@@ -10,7 +10,7 @@ public class Player : MonoBehaviour, IDamagable
     Ship ship;
     [SerializeField] PlayerTurret[] turrets;
     [SerializeField] PlayerLauncher[] launchers;
-    public int Health { get; set;} = 160000;
+    public int Health { get; set;} = 2000;
 
     float fireDelay, torpedoFireDelay;
     private Plane targetPlane;
@@ -49,13 +49,13 @@ public class Player : MonoBehaviour, IDamagable
         if (Input.GetKey(KeyCode.Q)) {
             Transform camtrans = mainCamera.transform;
             camtrans.localEulerAngles = new Vector3(
-            Mathf.Clamp(camtrans.localEulerAngles.x + 26 * Time.deltaTime, 51, 70), 
+            Mathf.Clamp(camtrans.localEulerAngles.x + 26 * Time.deltaTime, 53, 70), 
             camtrans.localEulerAngles.y, 
             camtrans.localEulerAngles.z);
         } else if (Input.GetKey(KeyCode.E)) {
             Transform camtrans = mainCamera.transform;
             camtrans.localEulerAngles = new Vector3(
-            Mathf.Clamp(camtrans.localEulerAngles.x - 26 * Time.deltaTime, 51, 70), 
+            Mathf.Clamp(camtrans.localEulerAngles.x - 26 * Time.deltaTime, 53, 70), 
             camtrans.localEulerAngles.y, 
             camtrans.localEulerAngles.z);
         }

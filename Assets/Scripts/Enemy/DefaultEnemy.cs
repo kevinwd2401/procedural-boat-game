@@ -139,7 +139,7 @@ public class DefaultEnemy : Enemy, IBoid
                     v = transform.position + 20 * cross + 5 * dirToPlayer;
                 } else {
                     //random
-                    Vector2 r2 = 60 * Random.insideUnitCircle;
+                    Vector2 r2 = (engageRange - 40) * Random.insideUnitCircle;
                     v = playerRB.position;
                     v.x += r2.x;
                     v.y += r2.y;

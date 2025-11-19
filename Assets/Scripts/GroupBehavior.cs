@@ -29,6 +29,7 @@ public abstract class GroupBehavior : MonoBehaviour
 
         foreach (Transform enemy in t)
         {
+            if (enemy == null) continue;
             Vector3 diff = transform.position - enemy.position;
             diff.y = 0f;
             float dist = diff.magnitude;

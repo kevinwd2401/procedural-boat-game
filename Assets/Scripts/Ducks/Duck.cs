@@ -16,10 +16,10 @@ public class Duck : GroupBehavior, IDamagable, IBoid
     {
         moveSpeed = 2.1f;
 
-        seekWeight = 0.3f;
+        seekWeight = 1.8f;
         fleeWeight = 1.6f;
-        cohesionWeight = 2.5f;
-        alignmentWeight = 0.4f;
+        cohesionWeight = 0.7f;
+        alignmentWeight = 0.9f;
         separationWeight = 1.0f;
 
         enemyRadius = 16f;

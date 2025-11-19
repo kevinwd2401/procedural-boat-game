@@ -40,6 +40,7 @@ public class ObjectSpawner : MonoBehaviour
                 while (Vector3.Distance(EnemyManager.Instance.playerTransform.position, spawnPos) < innerRadius);
 
                 GameObject ball = BulletPool.ballPool.Get();
+                spawnPos.y += 20;
                 ball.transform.position = spawnPos;
             }
         }

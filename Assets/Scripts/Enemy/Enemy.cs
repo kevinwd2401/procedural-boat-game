@@ -142,7 +142,7 @@ public abstract class Enemy : GroupBehavior, IDamagable
         ship.LoseEngines();
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Collider>().enabled = false;
-        StartCoroutine(SinkCor(6));
+        StartCoroutine(SinkCor(9));
         
         Destruction2();
 
@@ -157,7 +157,7 @@ public abstract class Enemy : GroupBehavior, IDamagable
         float originalY = transform.position.y;
         float sinkTimer = 0;
         while (sinkTimer < duration) {
-            float vertical = Mathf.SmoothStep(0, -14, Mathf.Pow(sinkTimer / duration, 2f));
+            float vertical = Mathf.SmoothStep(0, -20, Mathf.Pow(sinkTimer / duration, 2f));
             transform.position = new Vector3(transform.position.x, originalY + vertical, transform.position.z);
 
             sinkTimer += Time.deltaTime;

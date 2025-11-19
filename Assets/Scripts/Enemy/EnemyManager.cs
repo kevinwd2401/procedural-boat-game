@@ -33,13 +33,13 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnWave());
+        StartCoroutine(SpawnWave(4));
     }
 
     void Update() {
         waveTimer -= Time.deltaTime;
         if (waveTimer < 0) {
-            StartCoroutine(SpawnWave());
+            StartCoroutine(SpawnWave(5));
         }
     }
 
@@ -48,17 +48,17 @@ public class EnemyManager : MonoBehaviour
         Kills++;
         if (Enemies.Count <= 0) 
         {
-            StartCoroutine(SpawnWave());
+            StartCoroutine(SpawnWave(12));
         }
     }
 
 
-    private IEnumerator SpawnWave() {
+    private IEnumerator SpawnWave(float startDelay) {
         if (currentlySpawning) yield break;
         currentlySpawning = true;
         waveTimer = 300;
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(startDelay);
         WaveNumber++;
         Debug.Log("Spawning Wave " + WaveNumber);
 
@@ -67,9 +67,9 @@ public class EnemyManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         for (int i = 0; i < Mathf.Min(WaveNumber + 2, 5 + Random.Range(0, 5)); i++) {
-            //could reset target point, 
+            //could reset target point up to one time, each group might have priority, duck focus is rare, solo is random
             ClearTargetPoint();
-            GameObject ship = Instantiate(shipPrefabs[Random.Range(1, WaveNumber + 1)]);
+            GameObject ship = Instantiate(shipPrefabs[Mathf.Min(Random.Range(1, WaveNumber + 1), shipPrefabs.Length - 1)]);
             ship.transform.GetChild(0).position = chosenTargetPoint;
             DefaultEnemy de = ship.transform.GetChild(0).gameObject.GetComponent<DefaultEnemy>();
             de.InitializeEnemy(false, false, false);

@@ -29,8 +29,8 @@ public class DuckManager : MonoBehaviour
         healTimer -= Time.deltaTime;
         if (healTimer < 0) {
             healTimer = 10;
-            if (player.Health < 1500)
-                player.Health += Ducks.Count * 10;
+            if (player.Health <= 1900)
+                player.Health += Ducks.Count * 20;
         }
     }
 
