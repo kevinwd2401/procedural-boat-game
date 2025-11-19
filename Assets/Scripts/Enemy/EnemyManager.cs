@@ -33,13 +33,13 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnWave(4));
+        StartCoroutine(SpawnWave(0.1f));
     }
 
     void Update() {
         waveTimer -= Time.deltaTime;
         if (waveTimer < 0) {
-            StartCoroutine(SpawnWave(5));
+            StartCoroutine(SpawnWave(1));
         }
     }
 
@@ -48,7 +48,7 @@ public class EnemyManager : MonoBehaviour
         Kills++;
         if (Enemies.Count <= 0) 
         {
-            StartCoroutine(SpawnWave(12));
+            StartCoroutine(SpawnWave(0.1f));
         }
     }
 
@@ -80,7 +80,7 @@ public class EnemyManager : MonoBehaviour
                 pFocus = true;
             }
 
-            if (!switchPosition && Random.value > 0.9f) {
+            if (!switchPosition && Random.value > 0.92f) {
                 switchPosition = true;
                 //reset
                 SelectTargetPoint();

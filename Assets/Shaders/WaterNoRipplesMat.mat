@@ -60,7 +60,7 @@ Material:
     - _QueueOffset: -1
     - _Refraction: 0.04
     - _Scale: 0.4
-    - _Smoothness: 0.77
+    - _Smoothness: 0.92
     - _TimeScale: 18
     m_Colors: []
   m_BuildTextureStacks: []
