@@ -14,13 +14,13 @@ public class Duck : GroupBehavior, IDamagable, IBoid
     // Start is called before the first frame update
     void Start()
     {
-        moveSpeed = 2.5f;
+        moveSpeed = 2.1f;
 
         seekWeight = 0.3f;
-        fleeWeight = 3f;
-        cohesionWeight = 1.2f;
+        fleeWeight = 1.6f;
+        cohesionWeight = 2.5f;
         alignmentWeight = 0.4f;
-        separationWeight = 1.4f;
+        separationWeight = 1.0f;
 
         enemyRadius = 16f;
         neighborRadius = 15f;

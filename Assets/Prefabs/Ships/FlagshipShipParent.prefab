@@ -57,7 +57,7 @@ Transform:
   m_GameObject: {fileID: 90823889011563398}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 2.56}
+  m_LocalPosition: {x: 0, y: 0.14, z: 2.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -339,7 +339,12 @@ MonoBehaviour:
   EnemyType: 0
   seed3: 0
   seed2: 0
+  PlayerDetected: 0
+  DuckDetected: 0
   DuckFocus: 0
+  PlayerFocus: 0
+  TorpBoat: 0
+  Solo: 0
 --- !u!65 &4300461031598162747
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -412,7 +417,7 @@ MonoBehaviour:
   maxTurn: 18
   turnResistance: 0.7
   maxSpeed: 12
-  maxForce: 13
+  maxForce: 12
   accelSpeed: 0
 --- !u!1 &5322636856505084170
 GameObject:
@@ -5732,7 +5737,7 @@ PrefabInstance:
     - target: {fileID: 1546462234853639361, guid: afcd8674dbe81bf4688913d497259bcc,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4954973706300467712, guid: afcd8674dbe81bf4688913d497259bcc,
         type: 3}
@@ -5816,7 +5821,7 @@ PrefabInstance:
     - target: {fileID: 359963494652346472, guid: 1b5e3d1ebcb81244cb422c46d133f309,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5886135216437904726, guid: 1b5e3d1ebcb81244cb422c46d133f309,
         type: 3}

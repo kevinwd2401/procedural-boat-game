@@ -62,7 +62,7 @@ public class DuckManager : MonoBehaviour
         }
     }
 
-    private Vector3 GetCenter() {
+    public Vector3 GetCenter() {
         Vector3 center = Vector3.zero;
         int count = 0;
         foreach (IBoid other in Ducks)

@@ -312,7 +312,12 @@ MonoBehaviour:
   EnemyType: 2
   seed3: 0
   seed2: 0
+  PlayerDetected: 0
+  DuckDetected: 0
   DuckFocus: 0
+  PlayerFocus: 0
+  TorpBoat: 0
+  Solo: 0
 --- !u!65 &907557603024495930
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -385,7 +390,7 @@ MonoBehaviour:
   maxTurn: 25
   turnResistance: 0.6
   maxSpeed: 12
-  maxForce: 13.25
+  maxForce: 13
   accelSpeed: 0
 --- !u!1 &2152192817579057409
 GameObject:

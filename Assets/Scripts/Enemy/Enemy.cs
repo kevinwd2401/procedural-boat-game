@@ -28,8 +28,6 @@ public abstract class Enemy : GroupBehavior, IDamagable
     protected Vector3 aimOffset;
     protected float aimOffsetLinear;
     protected bool isDead;
-
-    
     
     protected float getDist(Duck duck = null) {
         if (duck != null) {
@@ -87,7 +85,11 @@ public abstract class Enemy : GroupBehavior, IDamagable
     }
 
     public void InflictDamage(int dmg, Transform bulletTrans) {
-        if (dmg > 1000 || Random.value < 0.02f)
+        if (dmg > 300 && dmg < 2000) {
+            dmg /= 4;
+        }
+
+        if (dmg > 1000 || (dmg > 50 && Random.value < 0.03f))
         {
             EngineDamage = true;
             float damageR = Random.value;
@@ -98,13 +100,14 @@ public abstract class Enemy : GroupBehavior, IDamagable
             }
 
             if (damageR > 0.4f) {
+                FiresOnShip++;
                 //Spawn VFX
                 GameObject smoke = Instantiate(smokePrefab, bulletTrans.position, Quaternion.identity);
                 smoke.transform.parent = transform;
                 smoke.transform.localPosition = 0.7f * smoke.transform.localPosition;
             }
         }
-        else if (Health < 2000 && Random.value < 0.1f)
+        else if (Health < 2000 && Random.value < 0.08f)
         {
             FiresOnShip++;
 
@@ -131,8 +134,6 @@ public abstract class Enemy : GroupBehavior, IDamagable
         foreach (EnemyLauncher l in LauncherArray) {
             l.Ready = false;
         }
-        EnemyManager.Instance.EnemyCount--;
-        EnemyManager.Instance.Deaths++;
 
         // VFX
         GameObject expl = Instantiate(explosionPrefab, transform.position, Quaternion.identity);

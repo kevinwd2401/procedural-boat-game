@@ -105,4 +105,8 @@ public class Ship : MonoBehaviour
     private void CalcGravityForce(Transform forceTransform) {
         rb.AddForceAtPosition(-Vector3.up * 9, forceTransform.position);
     }
+
+    public Vector3 GetVelocity() {
+        return rb.velocity;
+    }
 }

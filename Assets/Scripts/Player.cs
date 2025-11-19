@@ -10,7 +10,7 @@ public class Player : MonoBehaviour, IDamagable
     Ship ship;
     [SerializeField] PlayerTurret[] turrets;
     [SerializeField] PlayerLauncher[] launchers;
-    public int Health { get; set;} = 1600;
+    public int Health { get; set;} = 160000;
 
     float fireDelay, torpedoFireDelay;
     private Plane targetPlane;

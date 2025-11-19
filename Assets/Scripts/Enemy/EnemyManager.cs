@@ -10,31 +10,24 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] GameObject[] blackShipPrefabs;
     public static EnemyManager Instance;
     public Transform playerTransform;
+    public List<IBoid> Enemies = new List<IBoid>();
 
     public bool FlagShipDestroyed;
     public Enemy Flagship;
     private Vector3 chosenTargetPoint;
 
-    private int enemyCount;
-    public int EnemyCount
-    {
-        get => enemyCount;
-        set
-        {
-            enemyCount = value;
-            Debug.Log("Enemies: " + enemyCount);
-            if (enemyCount == 0) {
-                StartCoroutine(SpawnWave());
-            }
-        }
-    }
-    public int Deaths;
+
+    public int Kills;
+
+    private float waveTimer;
+    private bool currentlySpawning;
 
 
     void Awake() {
         Instance = this;
         WaveNumber = 0;
-        Deaths = 0;
+        Kills = 0;
+        waveTimer = 10;
     }
 
     // Start is called before the first frame update
@@ -43,8 +36,28 @@ public class EnemyManager : MonoBehaviour
         StartCoroutine(SpawnWave());
     }
 
+    void Update() {
+        waveTimer -= Time.deltaTime;
+        if (waveTimer < 0) {
+            StartCoroutine(SpawnWave());
+        }
+    }
+
+    public void EnemyDied(DefaultEnemy e) {
+        Enemies.Remove((IBoid) e);
+        Kills++;
+        if (Enemies.Count <= 0) 
+        {
+            StartCoroutine(SpawnWave());
+        }
+    }
+
 
     private IEnumerator SpawnWave() {
+        if (currentlySpawning) yield break;
+        currentlySpawning = true;
+        waveTimer = 300;
+
         yield return new WaitForSeconds(3);
         WaveNumber++;
         Debug.Log("Spawning Wave " + WaveNumber);
@@ -58,9 +71,10 @@ public class EnemyManager : MonoBehaviour
             ClearTargetPoint();
             GameObject ship = Instantiate(shipPrefabs[Random.Range(1, WaveNumber + 1)]);
             ship.transform.GetChild(0).position = chosenTargetPoint;
-            ship.transform.GetChild(0).gameObject.GetComponent<DefaultEnemy>().InitializeEnemy(true, false, false);
+            DefaultEnemy de = ship.transform.GetChild(0).gameObject.GetComponent<DefaultEnemy>();
+            de.InitializeEnemy(false, false, false);
             chosenTargetPoint.x += 10;
-            enemyCount++;
+            Enemies.Add((IBoid) de);
 
             yield return new WaitForSeconds(0.2f);
         }
@@ -68,12 +82,12 @@ public class EnemyManager : MonoBehaviour
         if (WaveNumber > 5 && Random.value > 0.7) {
             //SpawnSpecialShip()
         }
-
+        currentlySpawning = false;
     }
 
     private void SelectTargetPoint() {
         int r = Random.Range(0, possibleTargetPoints.Length);
-        chosenTargetPoint = playerTransform.position + 320 * (possibleTargetPoints[r].position - playerTransform.position).normalized;
+        chosenTargetPoint = playerTransform.position + 360 * (possibleTargetPoints[r].position - playerTransform.position).normalized;
         chosenTargetPoint.y = 1;
     }
     private void ClearTargetPoint() {
@@ -99,7 +113,7 @@ public class EnemyManager : MonoBehaviour
         Flagship = ship.transform.GetChild(0).gameObject.GetComponent<Enemy>();
         ((DefaultEnemy)Flagship).InitializeEnemy(true, false, false);
         chosenTargetPoint.x += 10;
-        enemyCount++;
+        Enemies.Add((IBoid) Flagship);
     }
 
     private void SpawnSpecialShip() {
@@ -108,8 +122,9 @@ public class EnemyManager : MonoBehaviour
 
         GameObject ship = Instantiate(blackShipPrefabs[Random.Range(0, blackShipPrefabs.Length)]);
         ship.transform.GetChild(0).position = chosenTargetPoint;
-        ship.transform.GetChild(0).gameObject.GetComponent<DefaultEnemy>().InitializeEnemy(true, true, false);
-        enemyCount++;
+        DefaultEnemy de = ship.transform.GetChild(0).gameObject.GetComponent<DefaultEnemy>();
+        de.InitializeEnemy(true, true, false);
+        Enemies.Add((IBoid) de);
     }
 
     public void EndGame() {
