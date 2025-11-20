@@ -25,7 +25,7 @@ public class HealthBox : MonoBehaviour
         if (dist <= 25)
         {
             Vector3 dir = toPlayer.normalized;
-            float speed = 20 * (1f - dist / 25); 
+            float speed = 50 * (1f - dist / 25); 
             rb.AddForce(dir * speed);
         }
 
@@ -40,6 +40,7 @@ public class HealthBox : MonoBehaviour
         if (c.gameObject.TryGetComponent<Player>(out Player p)) {
             HealPlayer(p);
             GetComponent<Collider>().enabled = false;
+            rb.velocity = Vector3.zero;
             used = true;
         }
     }

@@ -16,6 +16,7 @@ public class Player : MonoBehaviour, IDamagable
         get => health;
         set {
             health = Mathf.Min(value, 2400);
+            UIManager.Instance.UpdateHealth(Health, 2400);
         }
     }
 
@@ -48,9 +49,10 @@ public class Player : MonoBehaviour, IDamagable
         }
 
         if (Input.GetKey(KeyCode.W)) {
-            ship.Accelerate(true);
+            UIManager.Instance.UpdateSpeed(ship.Accelerate(true), 8);
+            
         } else if (Input.GetKey(KeyCode.S)) {
-            ship.Accelerate(false);
+            UIManager.Instance.UpdateSpeed(ship.Accelerate(false), 8);
         }
 
         if (Input.GetKey(KeyCode.Q)) {
@@ -110,7 +112,7 @@ public class Player : MonoBehaviour, IDamagable
         if (Mathf.Abs(Vector2.Dot(myDir.normalized, otherDir.normalized)) > 0.85f ) {
             dmg /= 2;
         }
-        health -= dmg;
+        Health -= dmg;
         Debug.Log("HP Left: " + Health);
         if (health <= 0) {
             Destruction();

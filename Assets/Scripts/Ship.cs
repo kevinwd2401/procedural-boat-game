@@ -67,12 +67,13 @@ public class Ship : MonoBehaviour
         }
     }
 
-    public void Accelerate(bool increase) {
+    public float Accelerate(bool increase) {
         if (increase) {
             currentForce = Mathf.Min(currentForce + accelSpeed * Time.deltaTime, maxForce);
         } else {
             currentForce = Mathf.Max(currentForce - accelSpeed * Time.deltaTime, -1.5f);
         }
+        return currentForce;
     }
 
     public void LoseRudder() {

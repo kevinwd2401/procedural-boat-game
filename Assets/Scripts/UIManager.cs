@@ -1,0 +1,98 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine;
+using TMPro;
+
+public class UIManager : MonoBehaviour
+{
+    public static UIManager Instance;
+
+    public Slider HealthSlider;
+    private int currentHealth;
+    private Coroutine healthRoutine;
+
+    public Slider SpeedSlider;
+
+    public Slider[] TorpSliders;
+
+    public TextMeshProUGUI killText, duckText, timerText;
+
+    private float timer;
+
+    void Awake() {
+        Instance = this;
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        timer += Time.deltaTime;
+        timerText.text = FormatMinutesSeconds(timer);
+
+    }
+    public string FormatMinutesSeconds(float seconds)
+    {
+        int totalSeconds = Mathf.FloorToInt(seconds);
+        int minutes = totalSeconds / 60;
+        int secs = totalSeconds % 60;
+
+        return $"{minutes}:{secs:00}";
+    }
+
+    public void UpdateDucks( int ducks) {
+        duckText.text = ducks.ToString();
+    }
+    public void UpdateKills( int kills) {
+        killText.text = kills.ToString();
+    }
+
+    public void UpdateTorps(int currNum, float reloadTimer, float reloadTime) {
+        for (int i = 0; i < currNum; i++) {
+            TorpSliders[i].value = reloadTime;
+        }
+        if (currNum < 4) {
+            TorpSliders[currNum].value = reloadTime - reloadTimer;
+        }
+        for (int i = currNum + 1; i < 4; i++) {
+            TorpSliders[i].value = 0;
+        }
+    }
+
+    public void UpdateSpeed(float current, float max) {
+
+        SpeedSlider.maxValue = max;
+        SpeedSlider.value = current;
+    }
+
+    public void UpdateHealth(int current, int max) {
+        currentHealth = current;
+
+        HealthSlider.maxValue = max;
+
+        if (healthRoutine != null)
+            StopCoroutine(healthRoutine);
+
+        healthRoutine = StartCoroutine(LerpHealth(currentHealth));
+    }
+
+    private IEnumerator LerpHealth(float targetValue) {
+        float startValue = HealthSlider.value;
+        float t = 0f;
+        float duration = 0.25f;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime / duration;
+            HealthSlider.value = Mathf.Lerp(startValue, targetValue, t);
+            yield return null;
+        }
+
+        HealthSlider.value = targetValue;
+    }
+}

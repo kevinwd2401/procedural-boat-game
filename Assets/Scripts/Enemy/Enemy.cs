@@ -118,7 +118,7 @@ public abstract class Enemy : GroupBehavior, IDamagable
         }
 
         Health -= dmg;
-        Debug.Log("Enemy took " + dmg + ", Remaining: " + Health);
+        //Debug.Log("Enemy took " + dmg + ", Remaining: " + Health);
         if (Health <= 0) {
             Destruction();
         }

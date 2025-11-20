@@ -20,6 +20,7 @@ public class EnemyManager : MonoBehaviour
     public int Kills;
 
     private float waveTimer;
+    private int currentSpecialIndex;
     private bool currentlySpawning;
 
 
@@ -46,6 +47,7 @@ public class EnemyManager : MonoBehaviour
     public void EnemyDied(DefaultEnemy e) {
         Enemies.Remove((IBoid) e);
         Kills++;
+        UIManager.Instance.UpdateKills(Kills);
         if (Enemies.Count <= 0) 
         {
             StartCoroutine(SpawnWave(0.1f));
@@ -67,23 +69,25 @@ public class EnemyManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         bool switchPosition = false;
+        bool spawnSpecial = WaveNumber > 5 && Random.value > 0.7;
 
 
-        for (int i = 0; i < Mathf.Min(WaveNumber + 2, 6 + Random.Range(0, 5)); i++) {
+        for (int i = 0; i < Mathf.Min(WaveNumber + 2, 5 + Random.Range(0, 5) - (spawnSpecial ? 3 : 0)); i++) {
             //reset target point up to one time, duck focus is rare, solo is random
 
             bool pFocus = false, dFocus = false;
             float r = Random.value;
             if (r > 0.9f) {
                 dFocus = true;
-            } else if (r > 0.2) {
+            } else if (r > 0.01f) {
                 pFocus = true;
             }
 
-            if (WaveNumber > 3 && !switchPosition && Random.value > 0.92f) {
+            if (WaveNumber > 3 && !switchPosition && Random.value > 0.9f) {
                 switchPosition = true;
                 //reset
                 SelectTargetPoint();
+                yield return new WaitForSeconds(25f);
             }
 
             ClearTargetPoint();
@@ -97,7 +101,7 @@ public class EnemyManager : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
 
-        if (WaveNumber > 5 && Random.value > 0.7) {
+        if (spawnSpecial) {
             //SpawnSpecialShip()
         }
         currentlySpawning = false;
@@ -105,7 +109,7 @@ public class EnemyManager : MonoBehaviour
 
     private void SelectTargetPoint() {
         int r = Random.Range(0, possibleTargetPoints.Length);
-        chosenTargetPoint = playerTransform.position + 360 * (possibleTargetPoints[r].position - playerTransform.position).normalized;
+        chosenTargetPoint = playerTransform.position + 380 * (possibleTargetPoints[r].position - playerTransform.position).normalized;
         chosenTargetPoint.y = 1;
     }
     private void ClearTargetPoint() {
@@ -130,16 +134,18 @@ public class EnemyManager : MonoBehaviour
         GameObject ship = Instantiate(shipPrefabs[0]);
         ship.transform.GetChild(0).position = chosenTargetPoint;
         Flagship = ship.transform.GetChild(0).gameObject.GetComponent<Enemy>();
-        ((DefaultEnemy)Flagship).InitializeEnemy(true, Random.value > 0.6f, false);
+        ((DefaultEnemy)Flagship).InitializeEnemy(true, Random.value > 0.05f, false);
         chosenTargetPoint.x += 10;
         Enemies.Add((IBoid) Flagship);
     }
 
     private void SpawnSpecialShip() {
+        currentSpecialIndex++;
+        if (currentSpecialIndex == blackShipPrefabs.Length) currentSpecialIndex = 0;
         SelectTargetPoint();
         ClearTargetPoint();
 
-        GameObject ship = Instantiate(blackShipPrefabs[Random.Range(0, blackShipPrefabs.Length)]);
+        GameObject ship = Instantiate(blackShipPrefabs[currentSpecialIndex]);
         ship.transform.GetChild(0).position = chosenTargetPoint;
         DefaultEnemy de = ship.transform.GetChild(0).gameObject.GetComponent<DefaultEnemy>();
         de.InitializeEnemy(true, true, false);

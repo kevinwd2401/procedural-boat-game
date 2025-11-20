@@ -38,6 +38,7 @@ public class DuckManager : MonoBehaviour
 
     public void DuckDied(IBoid d) {
         Ducks.Remove(d);
+        UIManager.Instance.UpdateDucks(Ducks.Count);
     }
 
     public Vector3 GetCenter() {

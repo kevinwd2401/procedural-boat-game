@@ -15,9 +15,9 @@ public class Duck : GroupBehavior, IDamagable, IBoid
     // Start is called before the first frame update
     void Start()
     {
-        moveSpeed = 2.1f;
+        moveSpeed = 1.8f;
 
-        seekWeight = 1.0f;
+        seekWeight = 0.9f;
         fleeWeight = 1.6f;
         cohesionWeight = 0.7f;
         alignmentWeight = 0.9f;
@@ -70,6 +70,9 @@ public class Duck : GroupBehavior, IDamagable, IBoid
         while (!isDead) {
             yield return new WaitForSeconds(25 + 10 * Random.value);
             //spawn heal
+            if (Health <= 300) Health = 300;
+            else Health += 200;
+            
             GameObject heal = Instantiate(healPrefab, transform.position, Quaternion.Euler(0, 360 * Random.value, 0));
         }
     }

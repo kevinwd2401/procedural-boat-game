@@ -20,6 +20,7 @@ public class PlayerLauncher : Turret
                 torpedosLoaded++;
                 reloadTimer = ReloadTime;
             }
+            UIManager.Instance.UpdateTorps(torpedosLoaded, reloadTimer, ReloadTime);
         }
 
         TurnTurret();
