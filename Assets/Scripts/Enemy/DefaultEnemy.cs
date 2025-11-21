@@ -222,7 +222,7 @@ public class DefaultEnemy : Enemy, IBoid
         avoidRange = 16f;
 
         if (EnemyType == 0) { Health = 2400; engageRange = 110;}
-        else if (EnemyType == 1) { Health = 1600 + Random.Range(0, 601); engageRange = 80;}
+        else if (EnemyType == 1) { Health = 1200 + Random.Range(0, 601); engageRange = 80;}
         else if (EnemyType == 2) { Health = 1600 + Random.Range(0, 801); engageRange = 140; TorpBoat = true;}
         else if (EnemyType == 3) { Health = 2800 + Random.Range(0, 801); engageRange = 100;}
         else if (EnemyType == 4) { Health = 4200 + Random.Range(0, 1201); engageRange = 120;}

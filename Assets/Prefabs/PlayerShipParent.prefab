@@ -5395,7 +5395,7 @@ MonoBehaviour:
   maxTurn: 24
   turnResistance: 0.8
   maxSpeed: 16
-  maxForce: 8
+  maxForce: 9
   accelSpeed: 8
 --- !u!54 &8053481449667479092
 Rigidbody:
