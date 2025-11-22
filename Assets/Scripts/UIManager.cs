@@ -16,7 +16,12 @@ public class UIManager : MonoBehaviour
 
     public Slider[] TorpSliders;
 
-    public TextMeshProUGUI killText, duckText, timerText;
+    public TextMeshProUGUI killText, duckText, timerText, waveText;
+
+    [Header("Start/End Screen")]
+    public CanvasGroup cg;
+    public TextMeshProUGUI endText, statText, startText;
+
 
     private float timer;
 
@@ -26,7 +31,41 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(FadeBlackCor(false, 3f));
+    }
+
+    public void UpdateEnd(bool survived, int waveNum) {
+        StartCoroutine(FadeBlackCor(true, 0.1f));
+
+        startText.text = "";
+
+        int totalSeconds = Mathf.FloorToInt(timer);
+        int minutes = totalSeconds / 60;
+        int secs = totalSeconds % 60;
+        string timeString = $"{minutes}:{secs:00}";
+
+        if (survived) {
+            endText.text = "All Waves Cleared!";
+        } else {
+            endText.text = "Waves Survived: " + (waveNum - 1).ToString();
+        }
+        statText.text = "Time Spent: " + timeString;
+    }
+
+    IEnumerator FadeBlackCor(bool fadeToBlack, float startDelay) {
+        yield return new WaitForSeconds(startDelay);
+
+        float startAlpha = fadeToBlack ? 0 : 1;
+        float endAlpha = fadeToBlack ? 1 : 0;
+
+        float timer = 0;
+        while (timer < 3) {
+            cg.alpha = Mathf.Lerp(startAlpha, endAlpha, timer / 3);
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        cg.alpha = endAlpha;
     }
 
     // Update is called once per frame
@@ -47,6 +86,10 @@ public class UIManager : MonoBehaviour
 
     public void UpdateDucks( int ducks) {
         duckText.text = ducks.ToString();
+    }
+
+    public void UpdateWaveNum( int num) {
+        waveText.text = "Wave " + num.ToString();
     }
     public void UpdateKills( int kills) {
         killText.text = kills.ToString();

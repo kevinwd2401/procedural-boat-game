@@ -57,12 +57,21 @@ public class EnemyManager : MonoBehaviour
 
     private IEnumerator SpawnWave(float startDelay) {
         if (currentlySpawning) yield break;
+
         currentlySpawning = true;
         waveTimer = 300;
 
+        if (WaveNumber == 16) {
+            yield return new WaitForSeconds(1);
+            waveTimer = 10000;
+            EndGame(false);
+
+            yield break;
+        }
+
         yield return new WaitForSeconds(startDelay);
         WaveNumber++;
-        Debug.Log("Spawning Wave " + WaveNumber);
+        UIManager.Instance.UpdateWaveNum(WaveNumber);
 
         SpawnFlagship();
 
@@ -153,7 +162,7 @@ public class EnemyManager : MonoBehaviour
         Enemies.Add((IBoid) de);
     }
 
-    public void EndGame() {
-        Debug.Log("Game Ended");
+    public void EndGame(bool playerDead) {
+        UIManager.Instance.UpdateEnd(!playerDead, WaveNumber);
     }
 }

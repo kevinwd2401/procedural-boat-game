@@ -128,7 +128,7 @@ public class Player : MonoBehaviour, IDamagable
 
         ship.LoseEngines();
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        EnemyManager.Instance.EndGame();
+        EnemyManager.Instance.EndGame(true);
 
         Debug.Log("dead");
     }
