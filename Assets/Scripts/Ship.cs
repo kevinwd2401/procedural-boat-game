@@ -76,6 +76,11 @@ public class Ship : MonoBehaviour
         return currentForce;
     }
 
+    public void EnemyMultiplyCurrentForce(float multiplier) {
+        maxForce *= multiplier;
+        currentForce = maxForce;
+    }
+
     public void LoseRudder() {
         loseRudder = true;
     }

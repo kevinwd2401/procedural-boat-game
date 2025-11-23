@@ -5,21 +5,21 @@ using UnityEngine;
 public class DefaultEnemy : Enemy, IBoid
 {
     public float ShootingOffset;
-    [SerializeField] int EnemyType;
+    [SerializeField] protected int EnemyType;
     [HideInInspector] public int seed3, seed2;
 
     [Header("States")]
-    [SerializeField] bool PlayerDetected;
-    [SerializeField] bool DuckDetected;
-    [SerializeField] bool DuckFocus;
-    [SerializeField] bool PlayerFocus;
-    [SerializeField] bool TorpBoat;
-    [SerializeField] bool Solo;
+    [SerializeField] protected bool PlayerDetected;
+    [SerializeField] protected bool DuckDetected;
+    [SerializeField] protected bool DuckFocus;
+    [SerializeField] protected bool PlayerFocus;
+    [SerializeField] protected bool TorpBoat;
+    [SerializeField] protected bool Solo;
 
     private float torpSpeed, shellSpeed;
-    private float avoidRange, engageRange;
+    protected float avoidRange, engageRange;
     private Vector3 storedDest;
-    private int FullHealth;
+    protected int FullHealth;
     private List<Transform> obstacles;
 
 
@@ -66,7 +66,7 @@ public class DefaultEnemy : Enemy, IBoid
             MoveTargets();
             foreach (EnemyTurret t in TurretArray) {
                 t.Ready = (!TorpBoat && (PlayerDetected || DuckDetected)) || 
-                    (TorpBoat && (PlayerDetected || DuckDetected) && Health < FullHealth);
+                    (TorpBoat && (PlayerDetected || DuckDetected) && Health < FullHealth - 300);
             }
             foreach (EnemyLauncher l in LauncherArray) {
                 l.Ready = PlayerDetected;
@@ -90,7 +90,7 @@ public class DefaultEnemy : Enemy, IBoid
                 Destination = ((DefaultEnemy) EnemyManager.Instance.Flagship).Destination;
             }
             
-            yield return new WaitForSeconds(2.5f + 2 * Random.value);
+            yield return new WaitForSeconds(1.5f + Random.value);
         }
     }
 
@@ -123,7 +123,7 @@ public class DefaultEnemy : Enemy, IBoid
             if (d > engageRange) {
                 v = playerRB.position + 20 * Random.insideUnitSphere;
             } else if (d < avoidRange) {
-                v = playerRB.position + 3 * (transform.position - playerRB.position);
+                v = playerRB.position + (avoidRange + 10) * (transform.position - playerRB.position).normalized;
             } else {
                 // engangement zone
                 
@@ -223,7 +223,7 @@ public class DefaultEnemy : Enemy, IBoid
 
         if (EnemyType == 0) { Health = 2400; engageRange = 110;}
         else if (EnemyType == 1) { Health = 1200 + Random.Range(0, 601); engageRange = 80;}
-        else if (EnemyType == 2) { Health = 1600 + Random.Range(0, 801); engageRange = 140; TorpBoat = true;}
+        else if (EnemyType == 2) { Health = 1200 + Random.Range(0, 801); engageRange = 140; TorpBoat = true;}
         else if (EnemyType == 3) { Health = 2800 + Random.Range(0, 801); engageRange = 100;}
         else if (EnemyType == 4) { Health = 4200 + Random.Range(0, 1201); engageRange = 120;}
         FullHealth = Health;

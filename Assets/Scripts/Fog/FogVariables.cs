@@ -10,7 +10,9 @@ public class FogVariables : MonoBehaviour
     private Vector3 savedScale;
 
     public float renderTexWorldSize;
-    private float timer;
+    private float timer, thickenFogDuration;
+    private float thickenMultiplier;
+    private Coroutine storedThickenFogCoroutine;
 
 
     // Start is called before the first frame update
@@ -34,7 +36,7 @@ public class FogVariables : MonoBehaviour
             FullScreenMat.SetVector("_BoundsMax", FogBox.position + savedScale / 2);
             FullScreenMat.SetVector("_TexWorldCenter", transform.position);
             yield return null;
-            FullScreenMat.SetFloat("_FogMultiplier", SmoothNoise1D(timer));
+            FullScreenMat.SetFloat("_FogMultiplier", Mathf.Max(SmoothNoise1D(timer), thickenMultiplier));
         }
     }
 
@@ -49,7 +51,30 @@ public class FogVariables : MonoBehaviour
             0.3f * Mathf.Sin(t * 0.19f + 1.3f) +
             0.1f * Mathf.Sin(t * 0.41f + 6.2f);
 
-        return Mathf.Lerp(0.1f, 0.5f, (n + 1.2f) * 0.5f);
+        return Mathf.Lerp(0.2f, 0.5f, (n + 1.2f) * 0.5f);
+    }
+
+    public void ThickenFog(float duration) {
+        thickenFogDuration += duration;
+        if (storedThickenFogCoroutine == null) {
+            storedThickenFogCoroutine = StartCoroutine(ThickenFogCor());
+        }
+    }
+
+    IEnumerator ThickenFogCor() {
+        while (thickenFogDuration > 0) {
+            thickenMultiplier = Mathf.Min(0.9f, 0.02f + thickenMultiplier);
+            if (thickenMultiplier > 0.79f) {
+                thickenFogDuration -= 0.1f;
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        while (thickenMultiplier > 0) {
+            thickenMultiplier -= 0.1f;
+            yield return new WaitForSeconds(0.1f);
+        }
+        thickenMultiplier = 0;
     }
 
     void OnDestroy() {

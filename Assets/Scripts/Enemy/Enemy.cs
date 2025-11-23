@@ -28,6 +28,7 @@ public abstract class Enemy : GroupBehavior, IDamagable
     protected Vector3 aimOffset;
     protected float aimOffsetLinear;
     protected bool isDead;
+    protected bool noIncap;
     
     protected float getDist(Duck duck = null) {
         if (duck != null) {
@@ -55,7 +56,7 @@ public abstract class Enemy : GroupBehavior, IDamagable
                 o /= 3;
             aimOffset = new Vector3(o.x, 0, o.y);
 
-            aimOffsetLinear = 0.65f * Random.value + 0.35f;
+            aimOffsetLinear = 0.75f * Random.value + 0.4f;
             yield return new WaitForSeconds(3 + Random.value);
         }
     }
@@ -88,33 +89,34 @@ public abstract class Enemy : GroupBehavior, IDamagable
         if (dmg > 300 && dmg < 2000) {
             dmg /= 4;
         }
+        if (!noIncap) {
+            if (dmg > 1000 || (dmg > 50 && Random.value < 0.03f))
+            {
+                EngineDamage = true;
+                float damageR = Random.value;
+                if (damageR > 0.6f) {
+                    ship.LoseEngines();
+                } else if (damageR > 0.4f) {
+                    ship.LoseRudder();
+                }
 
-        if (dmg > 1000 || (dmg > 50 && Random.value < 0.03f))
-        {
-            EngineDamage = true;
-            float damageR = Random.value;
-            if (damageR > 0.6f) {
-                ship.LoseEngines();
-            } else if (damageR > 0.4f) {
-                ship.LoseRudder();
+                if (damageR > 0.4f) {
+                    FiresOnShip++;
+                    //Spawn VFX
+                    GameObject smoke = Instantiate(smokePrefab, bulletTrans.position, Quaternion.identity);
+                    smoke.transform.parent = transform;
+                    smoke.transform.localPosition = 0.7f * smoke.transform.localPosition;
+                }
             }
-
-            if (damageR > 0.4f) {
+            else if (Health < 2000 && Random.value < 0.08f)
+            {
                 FiresOnShip++;
-                //Spawn VFX
-                GameObject smoke = Instantiate(smokePrefab, bulletTrans.position, Quaternion.identity);
-                smoke.transform.parent = transform;
-                smoke.transform.localPosition = 0.7f * smoke.transform.localPosition;
-            }
-        }
-        else if (Health < 2000 && Random.value < 0.08f)
-        {
-            FiresOnShip++;
 
-            //Spawn VFX
-            GameObject fire = Instantiate(firePrefab, bulletTrans.position, Quaternion.identity);
-            fire.transform.parent = transform;
-            fire.transform.localPosition = 0.7f * fire.transform.localPosition;
+                //Spawn VFX
+                GameObject fire = Instantiate(firePrefab, bulletTrans.position, Quaternion.identity);
+                fire.transform.parent = transform;
+                fire.transform.localPosition = 0.7f * fire.transform.localPosition;
+            }
         }
 
         Health -= dmg;

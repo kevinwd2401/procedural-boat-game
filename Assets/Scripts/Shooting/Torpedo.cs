@@ -5,6 +5,7 @@ using UnityEngine;
 public class Torpedo : MonoBehaviour
 {
     [SerializeField] GameObject explosionPrefab;
+    [SerializeField] MeshRenderer mr;
     private Rigidbody rb;
 
     private int damage;
@@ -48,6 +49,11 @@ public class Torpedo : MonoBehaviour
     public void SetValues(int dmg, float force, float lifespan) {
         rb = GetComponent<Rigidbody>();
         rb.velocity = force * transform.forward;
+        if (force > 9) {
+            Material m = mr.materials[0];
+            Color c = m.GetColor("_EmissionColor");
+            m.SetColor("_EmissionColor", 3 * c);
+        }
         damage = dmg;
         this.lifespan = lifespan + Random.value;
         totalLife = this.lifespan;

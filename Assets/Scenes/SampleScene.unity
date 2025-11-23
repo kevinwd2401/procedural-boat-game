@@ -4177,7 +4177,7 @@ Transform:
   m_GameObject: {fileID: 1418965920}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 0.81, z: -0}
+  m_LocalPosition: {x: 0, y: 4.44, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4839,6 +4839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae7184279f385f4880140fc5c6ed530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fv: {fileID: 207288164}
   possibleTargetPoints:
   - {fileID: 196347217}
   - {fileID: 1055632190}
@@ -4855,6 +4856,8 @@ MonoBehaviour:
   - {fileID: 9086305060085341314, guid: 5311a60861cf30a44bb6430e5557bbaa, type: 3}
   blackShipPrefabs:
   - {fileID: 1934923467548226515, guid: acd3efeb11c7bab469aeddf49da86ba1, type: 3}
+  - {fileID: 8274605577250870792, guid: fe2afefb369c6924bbdfae27f0c950fe, type: 3}
+  - {fileID: 7135796869966243166, guid: 17ab6835004931f4c93a7e8fd5100f60, type: 3}
   playerTransform: {fileID: 3759918366281878651}
   FlagShipDestroyed: 0
   Flagship: {fileID: 0}
@@ -4938,7 +4941,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1579360385}
   - component: {fileID: 1579360388}
-  - component: {fileID: 1579360387}
   - component: {fileID: 1579360386}
   m_Layer: 0
   m_Name: RadarCamera
@@ -5006,14 +5008,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &1579360387
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1579360384}
-  m_Enabled: 1
 --- !u!20 &1579360388
 Camera:
   m_ObjectHideFlags: 0

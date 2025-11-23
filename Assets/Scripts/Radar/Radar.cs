@@ -36,7 +36,6 @@ public class Radar : MonoBehaviour
                 hitThisHalf.Clear();
                 accumulatedRotation = 0f;
             }
-            Debug.Log(sweepDir);
             yield return new WaitForSeconds(0.25f);
         }
     }
