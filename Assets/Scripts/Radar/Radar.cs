@@ -50,7 +50,7 @@ public class Radar : MonoBehaviour
             toTarget.y = 0;
 
             float d = Vector3.Dot(sweepDir, toTarget.normalized);
-            if (d >= dotThreshold && toTarget.magnitude < 520)
+            if (d >= dotThreshold && toTarget.magnitude < 500)
             {
                 if (!hitThisHalf.Contains(b))
                 {

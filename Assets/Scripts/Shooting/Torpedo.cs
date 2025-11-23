@@ -50,7 +50,7 @@ public class Torpedo : MonoBehaviour
     }
     void FixedUpdate() {
         if (magnetic) {
-            Vector3 nextPos = rb.position + transform.forward * 12 * Time.fixedDeltaTime;
+            Vector3 nextPos = rb.position + transform.forward * 10 * Time.fixedDeltaTime;
             rb.MovePosition(nextPos);
         }
     }

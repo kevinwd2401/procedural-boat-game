@@ -1,5 +1,7 @@
 
 using UnityEngine;
+using System.Linq;
+using Random = System.Random;
 
 public static class Math
 {
@@ -40,5 +42,11 @@ public static class Math
 
         Vector3 launchDir = horizontalDir * cos + Vector3.up * sin;
         return launchDir.normalized;
+    }
+
+    public static int[] randomizeSpecialArray() {
+        Random rnd = new Random();
+        int[] numbers = new[] { 0, 1, 2, 3, 4, 5 };
+        return numbers.OrderBy(x => rnd.Next()).ToArray();
     }
 }

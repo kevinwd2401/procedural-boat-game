@@ -6,6 +6,7 @@ public class Player : MonoBehaviour, IDamagable
 {
     [SerializeField] GameObject explosionPrefab;
     [SerializeField] Camera mainCamera;
+    [SerializeField] Camera secondaryCam;
     [SerializeField] Transform targetTransform;
     Ship ship;
     [SerializeField] PlayerTurret[] turrets;
@@ -23,6 +24,10 @@ public class Player : MonoBehaviour, IDamagable
     float fireDelay, torpedoFireDelay;
     private Plane targetPlane;
     private bool isDead;
+
+    private Vector3 secondaryCamOffset;
+    private float secondaryCamOffsetMultiplier;
+    private bool usingSecondaryCam;
     
     private Vector3 camOffset;
     private float camOffsetMultiplier;
@@ -35,8 +40,10 @@ public class Player : MonoBehaviour, IDamagable
     // Start is called before the first frame update
     void Start()
     {
+        secondaryCamOffset = secondaryCam.transform.localPosition;
         camOffset = mainCamera.transform.localPosition;
         camOffsetMultiplier = 1;
+        secondaryCamOffsetMultiplier = 1;
     }
 
     // Update is called once per frame
@@ -58,13 +65,24 @@ public class Player : MonoBehaviour, IDamagable
             UIManager.Instance.UpdateSpeed(ship.Accelerate(false), 8);
         }
 
-        if (Input.GetKey(KeyCode.Q)) {
+        if (Input.GetKeyDown(KeyCode.Tab)) {
+            if (!usingSecondaryCam) {
+                mainCamera.enabled = false;
+                secondaryCam.enabled = true;
+            } else {
+                secondaryCam.enabled = false;
+                mainCamera.enabled = true;
+            }
+            usingSecondaryCam = !usingSecondaryCam;
+        }
+
+        if (!usingSecondaryCam && Input.GetKey(KeyCode.Q)) {
             Transform camtrans = mainCamera.transform;
             camtrans.localEulerAngles = new Vector3(
             Mathf.Clamp(camtrans.localEulerAngles.x + 26 * Time.deltaTime, 56, 70), 
             camtrans.localEulerAngles.y, 
             camtrans.localEulerAngles.z);
-        } else if (Input.GetKey(KeyCode.E)) {
+        } else if (!usingSecondaryCam && Input.GetKey(KeyCode.E)) {
             Transform camtrans = mainCamera.transform;
             camtrans.localEulerAngles = new Vector3(
             Mathf.Clamp(camtrans.localEulerAngles.x - 26 * Time.deltaTime, 56, 70), 
@@ -75,14 +93,23 @@ public class Player : MonoBehaviour, IDamagable
         float scrollValue = Input.mouseScrollDelta.y;
         if (scrollValue != 0f)
         {
-            float step = 0.05f;
-            camOffsetMultiplier -= Mathf.Sign(scrollValue) * step;
-            camOffsetMultiplier = Mathf.Clamp(camOffsetMultiplier, 0.7f, 1.2f);
-            mainCamera.transform.localPosition = camOffset * camOffsetMultiplier;
+            if (!usingSecondaryCam) {
+                float step = 0.05f;
+                camOffsetMultiplier -= Mathf.Sign(scrollValue) * step;
+                camOffsetMultiplier = Mathf.Clamp(camOffsetMultiplier, 0.7f, 1.2f);
+                mainCamera.transform.localPosition = camOffset * camOffsetMultiplier;
+            } else {
+                float step = 0.05f;
+                secondaryCamOffsetMultiplier -= Mathf.Sign(scrollValue) * step;
+                secondaryCamOffsetMultiplier = Mathf.Clamp(secondaryCamOffsetMultiplier, 0.6f, 1f);
+                secondaryCam.transform.localPosition = secondaryCamOffset * secondaryCamOffsetMultiplier;
+            }
         }
         
         //target
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        
+        Ray ray = usingSecondaryCam ? secondaryCam.ScreenPointToRay(Input.mousePosition) : 
+            mainCamera.ScreenPointToRay(Input.mousePosition);
 
         if (targetPlane.Raycast(ray, out float distance))
         {
@@ -116,7 +143,6 @@ public class Player : MonoBehaviour, IDamagable
             dmg /= 2;
         }
         Health -= dmg;
-        Debug.Log("HP Left: " + Health);
         if (health <= 0) {
             Destruction();
         }

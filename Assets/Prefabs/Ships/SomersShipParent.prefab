@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 412070390724355277}
   - component: {fileID: 5327713893963119128}
   - component: {fileID: 1776371930509528462}
+  - component: {fileID: 3763106806602375150}
   m_Layer: 0
   m_Name: SpecialDestroyer
   m_TagString: Untagged
@@ -84,6 +85,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3763106806602375150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374422200488005087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f95b9e22ed83d0e4c84252c42577b185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1739023876691483794
 GameObject:
   m_ObjectHideFlags: 0

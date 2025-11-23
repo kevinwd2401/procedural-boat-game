@@ -21,6 +21,7 @@ public class EnemyManager : MonoBehaviour
     public int Kills;
 
     private float waveTimer;
+    private int[] randomNumbers;
     private int currentSpecialIndex;
     private bool currentlySpawning;
 
@@ -35,7 +36,8 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentSpecialIndex = 4; // set random sequence
+        currentSpecialIndex = 0;
+        randomNumbers = Math.randomizeSpecialArray();
         StartCoroutine(SpawnWave(0.1f));
     }
 
@@ -52,7 +54,7 @@ public class EnemyManager : MonoBehaviour
         UIManager.Instance.UpdateKills(Kills);
         if (Enemies.Count <= 0) 
         {
-            StartCoroutine(SpawnWave(8));
+            StartCoroutine(SpawnWave(4));
         }
     }
 
@@ -120,7 +122,7 @@ public class EnemyManager : MonoBehaviour
 
     private void SelectTargetPoint() {
         int r = Random.Range(0, possibleTargetPoints.Length);
-        chosenTargetPoint = playerTransform.position + 520 * (possibleTargetPoints[r].position - playerTransform.position).normalized;
+        chosenTargetPoint = playerTransform.position + 480 * (possibleTargetPoints[r].position - playerTransform.position).normalized;
         chosenTargetPoint.y = 1;
     }
     private void ClearTargetPoint() {
@@ -166,7 +168,7 @@ public class EnemyManager : MonoBehaviour
         SelectTargetPoint();
         ClearTargetPoint();
 
-        GameObject ship = Instantiate(blackShipPrefabs[currentSpecialIndex]);
+        GameObject ship = Instantiate(blackShipPrefabs[randomNumbers[currentSpecialIndex]]);
         ship.transform.GetChild(0).position = chosenTargetPoint;
         DefaultEnemy de = ship.transform.GetChild(0).gameObject.GetComponent<DefaultEnemy>();
         de.InitializeEnemy(true, true, false);
@@ -175,6 +177,7 @@ public class EnemyManager : MonoBehaviour
         chosenTargetPoint.x += 10;
 
     }
+
 
     public void EndGame(bool playerDead) {
         UIManager.Instance.UpdateEnd(!playerDead, WaveNumber);
