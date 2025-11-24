@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -22,11 +23,14 @@ public class UIManager : MonoBehaviour
     public CanvasGroup cg;
     public TextMeshProUGUI endText, statText, startText;
 
+    private bool gameEnded;
+
 
     private float timer;
 
     void Awake() {
         Instance = this;
+        gameEnded = false;
     }
     // Start is called before the first frame update
     void Start()
@@ -49,7 +53,8 @@ public class UIManager : MonoBehaviour
         } else {
             endText.text = "Waves Survived: " + (waveNum - 1).ToString();
         }
-        statText.text = "Time Spent: " + timeString;
+        statText.text = "Time Spent: " + timeString + "\n \n Press any key to restart.";
+        gameEnded = true;
     }
 
     IEnumerator FadeBlackCor(bool fadeToBlack, float startDelay) {
@@ -73,6 +78,12 @@ public class UIManager : MonoBehaviour
     {
         timer += Time.deltaTime;
         timerText.text = FormatMinutesSeconds(timer);
+
+        if (gameEnded && Input.anyKeyDown) {
+            gameEnded = false;
+            BulletPool.Reset();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 
     }
     public string FormatMinutesSeconds(float seconds)

@@ -28,7 +28,7 @@ public class EnemyManager : MonoBehaviour
 
     void Awake() {
         Instance = this;
-        WaveNumber = 0;
+        WaveNumber = 5;
         Kills = 0;
         waveTimer = 10;
     }

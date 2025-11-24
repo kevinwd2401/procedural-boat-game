@@ -117,4 +117,17 @@ public class BulletPool
         GameObject.Destroy(spark.gameObject);
     }
 
+    public static void Reset()
+    {
+        ballPool?.Clear();
+        bulletPool?.Clear();
+        splashPool?.Clear();
+        sparkPool?.Clear();
+
+        ballPool = new ObjectPool<GameObject>(CreateBall, ActionOnGetBall, ActionOnReleaseBall, ActionOnDestroyBall, true, defaultSizeBallPool, maxSizeBallPool);
+        bulletPool = new ObjectPool<Projectile>(CreateBullet, ActionOnGetBullet, ActionOnReleaseBullet, ActionOnDestroyBullet, true, defaultSizeBulletPool, maxSizeBulletPool);
+        splashPool = new ObjectPool<ParticleSystem>(CreateSplash, ActionOnGetSplash, ActionOnReleaseSplash, ActionOnDestroySplash, true, defaultSizeSplashPool, maxSizeSplashPool);
+        sparkPool = new ObjectPool<ParticleSystem>(CreateSpark, ActionOnGetSpark, ActionOnReleaseSpark, ActionOnDestroySpark, true, defaultSizeSparkPool, maxSizeSparkPool);
+    }
+
 }

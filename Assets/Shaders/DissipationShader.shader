@@ -44,7 +44,7 @@ Shader "Custom/DissipationShader"
             fixed4 frag (v2f i) : SV_Target
             {
                 float3 color = tex2D(_MainTex, i.uv).rgb;
-                color *= 0.996;
+                color *= 0.997;
 
                 return float4(color, 1.0);
             }

@@ -44,12 +44,17 @@ public class Player : MonoBehaviour, IDamagable
         camOffset = mainCamera.transform.localPosition;
         camOffsetMultiplier = 1;
         secondaryCamOffsetMultiplier = 1;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (isDead) return;
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Cursor.visible = !Cursor.visible;
+        }
 
         //movement
         if (Input.GetKey(KeyCode.A)) {
