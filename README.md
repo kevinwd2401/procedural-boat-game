@@ -1,6 +1,5 @@
 # Final Project!
 
-This is it! The culmination of your procedural graphics experience this semester. For your final project, we'd like to give you the time and space to explore a topic of your choosing. You may choose any topic you please, so long as you vet the topic and scope with an instructor or TA. We've provided some suggestions below. The scope of your project should be roughly 1.5 homework assignments). To help structure your time, we're breaking down the project into 4 milestones:
 
 ## Project Planning: Design Doc
 
@@ -22,16 +21,19 @@ https://docs.google.com/document/d/1HD5-_L-pCF_eC4lvgOmJ6otgNM5OX93LYyv_ONMpe5w/
 | *Image 1* | *Image 2* | *Image 3* |
 
 ## Milestone 2: Implementation part 2 (due 11/24)
-We're over halfway there! This week should be about fixing bugs and extending the core of your generator. Make sure by the end of this week _your generator works and is feature complete._ Any core engine features that don't make it in this week should be cut! Don't worry if you haven't managed to exactly hit your goals. We're more interested in seeing proof of your development effort than knowing your planned everything perfectly. 
 
-Put all your code in your forked repository.
+- Progress:
+  - Volumetric fog with dissipation
+  - Procedural NPC enemy types, with the type affecting appearances, weapons, and behaviors
+  - Randomized spawning system
+  - Gameplay tweaks
 
-Submission: Add a new section to your README titled: Milestone #3, which should include
-- written description of progress on your project goals. If you haven't hit all your goals, what did you have to cut and why? 
-- Detailed output from your generator, images, video, etc.
-We'll check your repository for updates. No need to create a new pull request.
+- Screenshots:
 
-Come to class on the due date with a WORKING COPY of your project. We'll be spending time in class critiquing and reviewing your work so far.
+| <img alt="Screenshot 2025-11-13 203016" src="https://github.com/user-attachments/assets/d52c9d67-0fd7-4c75-8d3c-6d6efbdf40f8" /> | <img alt="Screenshot 2025-11-13 024010" src="https://github.com/user-attachments/assets/658847b9-5e8d-4577-be75-916e002df009" /> | <img alt="Screenshot 2025-11-14 010401" src="https://github.com/user-attachments/assets/524ce757-d371-469c-9282-8cc5f5957128" /> | <img alt="Screenshot 2025-11-19 014734" src="https://github.com/user-attachments/assets/956fe620-cc92-4ad8-be45-44ec71d36068" /> |
+|:--:|:--:|:--:|:--:|
+| *Image 1* | *Image 2* | *Image 3* | *Image 4* |
+
 
 ## Final submission (due 12/1)
 Time to polish! Spen this last week of your project using your generator to produce beautiful output. Add textures, tune parameters, play with colors, play with camera animation. Take the feedback from class critques and use it to take your project to the next level.
