@@ -1,5 +1,17 @@
 # Final Project!
 
+![ShipGameGif](https://github.com/user-attachments/assets/cb8ed2c0-471c-4ea6-bb82-ae26115a51bd)
+
+This is the repository for my Procedural Ship Game, a top-down combat game where you pilot a toy boat against waves of enemy ships within a foggy pool! Interesting features include:
+
+- Volumetric Fog, can be parted by objects which attenuate the fog density
+- Procedural Water with Ripples using render textures and a wave shader
+- Render texture scrolling to follow the player across a huge map
+- State-machine-based AI enemies
+- Boid NPC behaviors to create ship formations
+- Procedural behavior generation for enemies, depending on assigned tasks and enemy type
+- Procedural enemy attributes, including coloring, decoration, and armaments based on enemy types
+- UI & Radar Minimap to enhance immersion
 
 ## Project Planning: Design Doc
 
@@ -39,5 +51,7 @@ https://docs.google.com/document/d/1HD5-_L-pCF_eC4lvgOmJ6otgNM5OX93LYyv_ONMpe5w/
 
 - Progress:
   - Camera Rework
+  - Simple VFX
   - UI added
   - Increased enemy variety
+  - Audio
