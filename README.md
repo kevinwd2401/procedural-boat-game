@@ -14,6 +14,8 @@ This is the repository for my Procedural Ship Game, a top-down combat game where
 
 Final Presentation / Writeup: https://docs.google.com/presentation/d/1UKBCCSkjmP8u_keOVX7MhYTuFbagRYfBnC0QpznhGNI/edit?usp=sharing
 
+Demo Video: https://youtu.be/7vNvFi7JsXs
+
 Thanks for checking this out!
 
 ## Project Planning: Design Doc
