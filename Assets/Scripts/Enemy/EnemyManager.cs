@@ -16,6 +16,7 @@ public class EnemyManager : MonoBehaviour
     public bool FlagShipDestroyed;
     public Enemy Flagship;
     private Vector3 chosenTargetPoint;
+    private static int prevSavedWaveNum = 1;
 
 
     public int Kills;
@@ -28,7 +29,7 @@ public class EnemyManager : MonoBehaviour
 
     void Awake() {
         Instance = this;
-        WaveNumber = 0;
+        WaveNumber = prevSavedWaveNum - 1;
         Time.timeScale = 1.2f;
         Kills = 0;
         waveTimer = 10;
@@ -55,6 +56,7 @@ public class EnemyManager : MonoBehaviour
         UIManager.Instance.UpdateKills(Kills);
         if (Enemies.Count <= 0) 
         {
+            GetComponent<AudioSource>().Play();
             StartCoroutine(SpawnWave(4));
         }
     }
@@ -78,12 +80,16 @@ public class EnemyManager : MonoBehaviour
         WaveNumber++;
         UIManager.Instance.UpdateWaveNum(WaveNumber);
 
-        SpawnFlagship();
+        if (WaveNumber == 5 || WaveNumber == 12 || (WaveNumber > 5 && Random.value < 0.16f)) {
+            SpawnSpecialShip(true);
+        } else {
+            SpawnFlagship();
+        }
 
         yield return new WaitForSeconds(0.2f);
 
         bool switchPosition = false;
-        bool spawnSpecial = WaveNumber == 10 || WaveNumber == 12 || (WaveNumber > 5 && Random.value > 0.25f);
+        bool spawnSpecial = WaveNumber == 10 || WaveNumber == 12 || (WaveNumber > 5 && Random.value > 0.35f);
 
 
         for (int i = 0; i < Mathf.Min(WaveNumber + 2, 5 + Random.Range(0, 5)); i++) {
@@ -96,7 +102,7 @@ public class EnemyManager : MonoBehaviour
                 pFocus = true;
             }
 
-            if (WaveNumber > 3 && i > 1 && !switchPosition && Random.value > 0.9f) {
+            if (WaveNumber > 3 && i > 1 && !switchPosition && Random.value > 0.85f) {
                 switchPosition = true;
                 //reset
                 yield return new WaitForSeconds(Mathf.Min(i * 16, 35f));
@@ -163,15 +169,19 @@ public class EnemyManager : MonoBehaviour
         Enemies.Add((IBoid) de);
     }
 
-    private void SpawnSpecialShip() {
+    private void SpawnSpecialShip(bool flagship = false) {
         currentSpecialIndex++; // get next in random sequence
         if (currentSpecialIndex == blackShipPrefabs.Length) currentSpecialIndex = 0;
         SelectTargetPoint();
         ClearTargetPoint();
 
-        GameObject ship = Instantiate(blackShipPrefabs[randomNumbers[currentSpecialIndex]]);
+        GameObject ship = flagship ? Instantiate(blackShipPrefabs[4]) : Instantiate(blackShipPrefabs[randomNumbers[currentSpecialIndex]]);
         ship.transform.GetChild(0).position = chosenTargetPoint;
         DefaultEnemy de = ship.transform.GetChild(0).gameObject.GetComponent<DefaultEnemy>();
+        if (flagship) {
+            FlagShipDestroyed = false;
+            Flagship = (Enemy) de;
+        }
         de.InitializeEnemy(true, true, false);
         Enemies.Add((IBoid) de);
         
@@ -181,6 +191,7 @@ public class EnemyManager : MonoBehaviour
 
 
     public void EndGame(bool playerDead) {
+        prevSavedWaveNum = Mathf.Min(6, WaveNumber);
         UIManager.Instance.UpdateEnd(!playerDead, WaveNumber);
     }
 

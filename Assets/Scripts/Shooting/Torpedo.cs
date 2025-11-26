@@ -56,7 +56,7 @@ public class Torpedo : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision c) {
-        if (c.gameObject.tag == "Water" || totalLife - lifespan < 0.5f) return;
+        if (c.gameObject.tag == "Water" || totalLife - lifespan < 0.25f) return;
         if (c.gameObject.TryGetComponent<IDamagable>(out IDamagable d)) {
             d.InflictDamage(damage, this.transform);
 

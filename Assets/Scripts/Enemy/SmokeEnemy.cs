@@ -6,8 +6,11 @@ public class SmokeEnemy : DefaultEnemy
 {
     [SerializeField] MeshRenderer lightMR;
     [SerializeField] ParticleSystem smokePS;
+    AudioSource audioSource;
 
     public override void InitializeEnemy(bool solo, bool playerFocus, bool duckFocus) {
+        audioSource = GetComponent<AudioSource>();
+
         noIncap = true;
         seekWeight = 0.8f;
         cohesionWeight = 0.5f;
@@ -86,6 +89,7 @@ public class SmokeEnemy : DefaultEnemy
             yield return new WaitForSeconds(2);
             if (Health < FullHealth - 400) {
                 if (smokeUsed || Random.value > 0.4) {
+                    audioSource.Play();
                     StartCoroutine(TorpReloadBoostCor(14, 0.3f));
                     yield return new WaitForSeconds(24 + 4 * Random.value);
                 } else {
@@ -103,6 +107,7 @@ public class SmokeEnemy : DefaultEnemy
             if (Health < FullHealth - 400) {
                 if (Random.value < 0.7f) {
                     StartCoroutine(ReloadBoostCor(15, 0.2f));
+                    audioSource.Play();
                     yield return new WaitForSeconds(26 + 4 * Random.value);
                 } else {
                     StartCoroutine(SpeedBoostCor(18, 1.5f));
@@ -117,6 +122,7 @@ public class SmokeEnemy : DefaultEnemy
             yield return new WaitForSeconds(2);
             if (getDist() < 50 || Health < FullHealth / 2) {
                 StartCoroutine(ReloadBoostCor(12, 0.25f));
+                audioSource.Play();
                 yield return new WaitForSeconds(20 + 4 * Random.value);
             }
         }

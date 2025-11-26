@@ -67,7 +67,7 @@ public abstract class Enemy : GroupBehavior, IDamagable
         float travelTime = (d / bulletSpeed) * (1f + (4 * d) / (2f * bulletSpeed * bulletSpeed));
         Vector3 toYou = (transform.position - targetRB.position).normalized;
         if (targetRB.velocity.magnitude > 6) {
-            float multiplier = 1 - 0.4f * Vector3.Dot(toYou, targetRB.transform.forward);
+            float multiplier = 1 - 0.3f * Vector3.Dot(toYou, targetRB.transform.forward);
             travelTime *= multiplier;
         }
         Vector3 targetDir = targetRB.velocity * travelTime;

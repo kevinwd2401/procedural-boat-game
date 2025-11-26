@@ -8,6 +8,7 @@ TagManager:
   - Ship
   - Environment
   - Water
+  - Enemy
   layers:
   - Default
   - TransparentFX
