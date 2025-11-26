@@ -63,7 +63,7 @@ public class SmokeEnemy : DefaultEnemy
     }
 
     private IEnumerator Checker1() {
-        while (true) {
+        while (!isDead) {
             yield return new WaitForSeconds(2);
             if (Health < 2500) {
                 StartCoroutine(SmokeCor(30));
@@ -73,7 +73,7 @@ public class SmokeEnemy : DefaultEnemy
     }
 
     private IEnumerator Checker2() {
-        while (true) {
+        while (!isDead) {
             yield return new WaitForSeconds(2);
             if (Health < 3500) {
                 StartCoroutine(SmokeCor(24));
@@ -85,7 +85,7 @@ public class SmokeEnemy : DefaultEnemy
 
     private IEnumerator Checker3() {
         bool smokeUsed = false;
-        while (true) {
+        while (!isDead) {
             yield return new WaitForSeconds(2);
             if (Health < FullHealth - 400) {
                 if (smokeUsed || Random.value > 0.4) {
@@ -102,7 +102,7 @@ public class SmokeEnemy : DefaultEnemy
     }
 
     private IEnumerator Checker4() {
-        while (true) {
+        while (!isDead) {
             yield return new WaitForSeconds(2);
             if (Health < FullHealth - 400) {
                 if (Random.value < 0.7f) {
@@ -118,7 +118,7 @@ public class SmokeEnemy : DefaultEnemy
     }
 
     private IEnumerator Checker5() {
-        while (true) {
+        while (!isDead) {
             yield return new WaitForSeconds(2);
             if (getDist() < 50 || Health < FullHealth / 2) {
                 StartCoroutine(ReloadBoostCor(12, 0.25f));
@@ -129,7 +129,7 @@ public class SmokeEnemy : DefaultEnemy
     }
 
     private IEnumerator Checker6() {
-        while (true) {
+        while (!isDead) {
             yield return new WaitForSeconds(4);
             if (Health < FullHealth && Random.value < 0.25f) {
                 StartCoroutine((SpeedBoostCor(12, 1.75f)));

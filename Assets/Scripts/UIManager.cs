@@ -76,7 +76,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
+        timer += Time.unscaledDeltaTime;
         timerText.text = FormatMinutesSeconds(timer);
 
         if (gameEnded && Input.anyKeyDown) {
