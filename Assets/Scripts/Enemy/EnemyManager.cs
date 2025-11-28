@@ -68,7 +68,9 @@ public class EnemyManager : MonoBehaviour
         currentlySpawning = true;
         waveTimer = 300;
 
-        if (WaveNumber == 12) {
+        if (WaveNumber == 11) {
+            waveTimer = 10000;
+        } else if (WaveNumber == 12) {
             yield return new WaitForSeconds(1);
             waveTimer = 10000;
             EndGame(false);

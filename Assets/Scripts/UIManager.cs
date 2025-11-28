@@ -54,7 +54,6 @@ public class UIManager : MonoBehaviour
             endText.text = "Waves Survived: " + (waveNum - 1).ToString();
         }
         statText.text = "Time Spent: " + timeString + "\n \n Press any key to restart.";
-        gameEnded = true;
     }
 
     IEnumerator FadeBlackCor(bool fadeToBlack, float startDelay) {
@@ -71,6 +70,11 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
         cg.alpha = endAlpha;
+
+        if (fadeToBlack) {
+            yield return new WaitForSeconds(2);
+            gameEnded = true;
+        }
     }
 
     // Update is called once per frame
