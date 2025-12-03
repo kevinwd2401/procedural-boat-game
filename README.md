@@ -16,14 +16,18 @@ Final Presentation / Writeup: https://docs.google.com/presentation/d/1UKBCCSkjmP
 
 Demo Video: https://youtu.be/7vNvFi7JsXs
 
-Controls:
+![Itch.io (volumetrics are disabled)](https://kevind3132.itch.io/big-boat-battle)
+
+Thanks for checking this out!
+
+## Controls
+
 - WASD: control the ship's engine power and turning
 - Left Click: Fire guns
 - Right Click: Launch torpedoes (firing angles limited to the sides of the ship)
 - Q, E, Scroll Wheel: Controls camera angle and camera zoom, respectively
 - Tab: toggle between the camera's 2 different modes
 
-Thanks for checking this out!
 
 ## Project Planning: Design Doc
 
