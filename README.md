@@ -16,7 +16,7 @@ Final Presentation / Writeup: https://docs.google.com/presentation/d/1UKBCCSkjmP
 
 Demo Video: https://youtu.be/7vNvFi7JsXs
 
-![Itch.io (volumetrics are disabled)](https://kevind3132.itch.io/big-boat-battle)
+[Itch.io (volumetrics are disabled)](https://kevind3132.itch.io/big-boat-battle)
 
 Thanks for checking this out!
 
