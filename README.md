@@ -26,6 +26,7 @@ Thanks for checking this out!
 - Q, E, Scroll Wheel: Controls camera angle and camera zoom, respectively
 - Tab: toggle between the camera's 2 different modes
 
+[Itch.io (volumetrics are disabled)](https://kevind3132.itch.io/big-boat-battle)
 
 ## Project Planning: Design Doc
 
